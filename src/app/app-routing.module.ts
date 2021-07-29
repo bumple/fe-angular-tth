@@ -16,7 +16,7 @@ const routes: Routes = [
         path: 'wallet',
         children: [
           {
-            path: '',
+            path: 'info',
             component: WalletInfoComponent
           },
           {
