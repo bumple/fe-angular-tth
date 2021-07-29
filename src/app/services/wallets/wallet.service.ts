@@ -32,4 +32,7 @@ export class WalletService {
     return this.http.delete(environment.url + '/wallet/' + id)
   }
 
+  createWallet(wallet: IWallet): Observable<any>{
+    return this.http.post(environment.url + '/wallet', wallet)
+  }
 }
