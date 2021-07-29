@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
-import {IWallet} from "../../components/wallets/iwallet";
+import {IWallet} from "../../interface/iwallet";
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class WalletService {
   }
 
   plusMoney(id: number,wallet: IWallet):Observable<any>{
-    return this.http.put(environment.url + '/wallet/' +id , wallet)
+    return this.http.put(environment.url + '/wallet/info/' +id , wallet)
   }
 
   update(id: number,wallet: IWallet):Observable<any>{
