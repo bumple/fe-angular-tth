@@ -1,31 +1,53 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {UserService} from "../../../../services/users/user.service";
+<div class="hold-transition register-page">
+  <div class="register-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="../../index2.html" class="h1">TimeTo<b>High</b></a>
+      </div>
+      <div class="card-body">
+        <p class="login-box-msg">Tạo tài khoản</p>
 
-@Component({
-selector: 'app-register',
-templateUrl: './register.component.html',
-styleUrls: ['./register.component.css']
-})
-export class RegisterComponent implements OnInit {
-formRegister: FormGroup | undefined;
-constructor(private fb: FormBuilder,
-private userService: UserService) {
-}
-
-ngOnInit(): void {
-this.formRegister = this.fb.group({
-name: [''],
-email: [''],
-password: ['']
-})
-}
-
-submit(){
-let data = this.formRegister?.value;
-this.userService.register(data).subscribe((res)=>{
-console.log(res)
-})
-}
-
-  }
+        <form *ngIf="formRegister" [formGroup]="formRegister" (ngSubmit)="submit()">
+          <div class="input-group mb-3">
+            <input formControlName="name" type="text" class="form-control" placeholder="Tên">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="email" type="email" class="form-control" placeholder="Email">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="password" type="password" class="form-control" placeholder="Mật khẩu">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <!--        <div class="input-group mb-3">-->
+          <!--          <input type="password" class="form-control" placeholder="Retype password">-->
+          <!--          <div class="input-group-append">-->
+          <!--            <div class="input-group-text">-->
+          <!--              <span class="fas fa-lock"></span>-->
+          <!--            </div>-->
+          <!--          </div>-->
+          <!--        </div>-->
+          <div class="row">
+            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+            <!-- /.col -->
+          </div>
+        </form>
+        <p class="mt-1">Already have an account? <a style="text-align: center" routerLink="/login">Login here</a></p>
+      </div>
+      <!-- /.form-box -->
+    </div><!-- /.card -->
+  </div>
+</div>
