@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutsComponent } from './components/layouts/master/layouts.component';
@@ -14,6 +13,7 @@ import { WalletInfoComponent } from './components/wallets/wallet-info/wallet-inf
 import { TransactionsListComponent } from './components/transactions/transactions-list/transactions-list.component';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import { WalletCreateComponent } from './components/wallets/wallet-create/wallet-create.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     UserProfileComponent,
     CategoryListComponent,
     WalletInfoComponent,
-    TransactionsListComponent
+    TransactionsListComponent,
+    WalletCreateComponent
   ],
   imports: [
     BrowserModule,
