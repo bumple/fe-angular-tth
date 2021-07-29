@@ -12,7 +12,7 @@ import { CategoryListComponent } from './components/categories/category-list/cat
 import { WalletInfoComponent } from './components/wallets/wallet-info/wallet-info.component';
 import { TransactionsListComponent } from './components/transactions/transactions-list/transactions-list.component';
 import {HttpClientModule} from "@angular/common/http";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { WalletCreateComponent } from './components/wallets/wallet-create/wallet-create.component';
 
 @NgModule({
@@ -29,12 +29,13 @@ import { WalletCreateComponent } from './components/wallets/wallet-create/wallet
     TransactionsListComponent,
     WalletCreateComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

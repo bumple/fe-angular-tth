@@ -1,13 +1,40 @@
-<div class="row float-right">
-  <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#modal-default">
-    Add Money
-  </button>
-
-  <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#modal-lg">
-    Add Transaction
-  </button>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6 float-left">
+          <h1>Wallet List</h1>
+        </div>
+        <div class="col-md-6">
+          <div style="float:right;">
+            <button type="button" class="btn bg-gradient-success mr-2" data-toggle="modal" data-target="#modal-default">
+              <i class="fas fa-dollar-sign"> Add Money</i>
+            </button>
+            |
+            <button type="button" class="btn bg-gradient-success ml-2" data-toggle="modal" data-target="#modal-lg">
+              <i class="fas fa-coins"> Add Transaction</i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3" *ngFor="let wallet of wallets">
+          <div class="info-box shadow">
+            <span class="info-box-icon bg-warning"><img src="assets/images/icons/{{wallet.id}}.png"> </span>
+            <div class="info-box-content">
+              <span class="info-box-text">{{wallet.name}}</span>
+              <span class="info-box-number">{{wallet.amount}} VND</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!--Modal add money-->
 <div class="modal fade" id="modal-default">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -55,6 +82,7 @@
   </div>
 </div>
 
+<!--Modal add transaction-->
 <div class="modal fade" id="modal-lg">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -71,7 +99,7 @@
               <!-- select -->
               <div class="form-group">
                 <label>Select your Wallet </label>
-                <select class="form-control form-control-lg" formControlName="wallet_id" >
+                <select class="form-control form-control-lg" formControlName="wallet_id">
                   <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
                 </select>
               </div>
@@ -111,7 +139,7 @@
             Close
           </button>
           <button type="submit" onclick="$('#close_modal_transaction').click();"
-                  class="btn btn-outline-success">Save changes
+                  [disabled]="formAddTransaction.invalid" class="btn btn-outline-success">Save changes
           </button>
         </div>
       </form>
