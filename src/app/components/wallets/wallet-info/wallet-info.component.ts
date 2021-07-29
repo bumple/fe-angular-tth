@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {WalletService} from "../../../services/wallets/wallet.service";
 import {Router} from "@angular/router";
@@ -13,7 +13,7 @@ import {ICategory} from "../../../interface/icategory";
   styleUrls: ['./wallet-info.component.css']
 })
 export class WalletInfoComponent implements OnInit {
-
+  wallet_amount!: number;
   formAddTransaction: FormGroup | undefined;
   formAddMoney: FormGroup | undefined;
   wallets: IWallet[] = [];
@@ -38,8 +38,8 @@ export class WalletInfoComponent implements OnInit {
     this.formAddTransaction = this.fb.group({
       'wallet_id': [''],
       'category_id': [''],
-      'money': [''],
-      'note': [''],
+      'money': ['',[Validators.required]],
+      'note': ['',[Validators.required]],
     })
   }
 
@@ -52,7 +52,9 @@ export class WalletInfoComponent implements OnInit {
 
   createTran(){
     let data = this.formAddTransaction?.value;
-    this.transactionService.store(data).subscribe( () => {})
+    this.transactionService.store(data).subscribe( () => {
+      this.getAllWallet();
+    })
   }
 
   getAllWallet(){
@@ -65,6 +67,7 @@ export class WalletInfoComponent implements OnInit {
     // @ts-ignore
     let data = this.formAddMoney?.value;
     this.walletService.plusMoney(data.id,data).subscribe(res => {
+      this.getAllWallet();
       console.log(res);
     })
   }
@@ -73,10 +76,18 @@ export class WalletInfoComponent implements OnInit {
     return this.formAddMoney?.get('amount');
   }
 
-  getErrorMessageAmount() {
-    // if(this.amount?.hasError('min')){
-    // return "You must insert amount of money";
-    return this.amount?.hasError('required') ? "Insert amount of money" : '';
-    // }
+  get money() {
+    return this.formAddTransaction?.get('money');
   }
+
+  get note() {
+    return this.formAddTransaction?.get('note');
+  }
+
+  // getErrorMessageAmount() {
+  //   // if(this.amount?.hasError('min')){
+  //   // return "You must insert amount of money";
+  //   return this.amount?.hasError('required') ? "Insert amount of money" : '';
+  //   // }
+  // }
 }

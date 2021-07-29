@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LayoutsComponent} from "./components/layouts/master/layouts.component";
 import {LoginComponent} from "./components/layouts/pages/login/login.component";
 import {RegisterComponent} from "./components/layouts/pages/register/register.component";
@@ -10,26 +10,21 @@ import {WalletCreateComponent} from "./components/wallets/wallet-create/wallet-c
 const routes: Routes = [
   {
     path: '',
-    component: LayoutsComponent,
-    children: [
-      {
-        path: 'wallet',
-        children: [
-          {
-            path: 'info',
-            component: WalletInfoComponent
-          },
-          {
-            path: 'create',
-            component: WalletCreateComponent
-          }
-        ]
-      }
-    ]
+    component: LoginComponent,
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'wallet',
+    component:LayoutsComponent,
+    children: [
+      {
+        path: 'info',
+        component: WalletInfoComponent
+      },
+      {
+        path: 'create',
+        component: WalletCreateComponent
+      }
+    ]
   },
   {
     path: 'register',
@@ -41,4 +36,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
