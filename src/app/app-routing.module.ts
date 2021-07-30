@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import {LayoutsComponent} from "./components/layouts/master/layouts.component";
 import {LoginComponent} from "./components/layouts/pages/login/login.component";
 import {RegisterComponent} from "./components/layouts/pages/register/register.component";
+import {AuthGuard} from "./AuthGuard/auth.guard";
+
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutsComponent,
+    // canActivate: [AuthGuard]
   },
   {
     path: 'login',
@@ -15,9 +18,10 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component: RegisterComponent
+    component: RegisterComponent,
+
   }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

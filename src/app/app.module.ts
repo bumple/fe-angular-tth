@@ -12,8 +12,11 @@ import { UserProfileComponent } from './components/users/user-profile/user-profi
 import { CategoryListComponent } from './components/categories/category-list/category-list.component';
 import { WalletInfoComponent } from './components/wallets/wallet-info/wallet-info.component';
 import { TransactionsListComponent } from './components/transactions/transactions-list/transactions-list.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
+import {JWT_OPTIONS, JwtHelperService, JwtModule} from "@auth0/angular-jwt";
+import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-interceptor.component';
+
 
 @NgModule({
   declarations: [
@@ -26,15 +29,19 @@ import {ReactiveFormsModule} from "@angular/forms";
     UserProfileComponent,
     CategoryListComponent,
     WalletInfoComponent,
-    TransactionsListComponent
+    TransactionsListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule,
   ],
-  providers: [],
+  providers: [
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    JwtHelperService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
