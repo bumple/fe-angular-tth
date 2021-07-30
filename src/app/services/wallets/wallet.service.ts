@@ -13,26 +13,26 @@ export class WalletService {
   constructor(protected http: HttpClient) { }
 
   getAllWallets():Observable<any>{
-    return this.http.get(environment.url + '/wallet');
+    return this.http.get(environment.url + '/auth/wallet');
   }
 
   findById(id: number):Observable<any>{
-    return this.http.get(environment.url + '/wallet/' + id)
+    return this.http.get(environment.url + '/auth/wallet/' + id)
   }
 
   plusMoney(id: number,wallet: IWallet):Observable<any>{
-    return this.http.put(environment.url + '/wallet/info/' +id , wallet)
+    return this.http.put(environment.url + '/auth/wallet/info/' +id , wallet)
   }
 
   update(id: number,wallet: IWallet):Observable<any>{
-    return this.http.put(environment.url + '/wallet/' +id , wallet)
+    return this.http.put(environment.url + '/auth/wallet/' +id , wallet)
   }
 
   delete(id: number):Observable<any>{
-    return this.http.delete(environment.url + '/wallet/' + id)
+    return this.http.delete(environment.url + '/auth/wallet/' + id)
   }
 
   createWallet(wallet: IWallet): Observable<any>{
-    return this.http.post(environment.url + '/wallet', wallet)
+    return this.http.post(environment.url + '/auth/wallet', wallet)
   }
 }

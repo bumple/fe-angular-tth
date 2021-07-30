@@ -10,6 +10,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   register(data: any){
-    return this.http.post(environment.url + '/register',data);
+    return this.http.post(environment.url + '/auth/register',data);
   }
 }

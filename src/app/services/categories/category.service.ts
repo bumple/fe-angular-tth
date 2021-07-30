@@ -11,7 +11,7 @@ export class CategoryService {
   constructor(protected http: HttpClient) { }
 
   getAllCategories():Observable<any>{
-    return this.http.get(environment.url + '/category')
+    return this.http.get(environment.url + '/auth/category')
   }
 
 }
