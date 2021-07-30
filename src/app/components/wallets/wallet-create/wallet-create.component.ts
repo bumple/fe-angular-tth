@@ -1,18 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {WalletService} from "../../../services/wallets/wallet.service";
+
 
 @Component({
   selector: 'app-wallet-create',
   templateUrl: './wallet-create.component.html',
-  styleUrls: ['./wallet-create.component.css']
+  styleUrls: ['./wallet-create.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class WalletCreateComponent implements OnInit {
 
   backgroundImg = 'assets/images/icons/1.png';
   value = '1';
-  formRegister: FormGroup | undefined;
+  formAddWallet: FormGroup | undefined;
 
   iconList = [{
     value: '2',
@@ -74,7 +76,7 @@ export class WalletCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formRegister = this.fb.group({
+    this.formAddWallet = this.fb.group({
       name: [''],
       amount: [''],
       description: [''],
@@ -90,8 +92,9 @@ export class WalletCreateComponent implements OnInit {
     this.backgroundImg = icon.img;
     this.value = icon.value;
   }
+
   submit(){
-    let data = this.formRegister?.value;
+    let data = this.formAddWallet?.value;
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe( (res) => {
