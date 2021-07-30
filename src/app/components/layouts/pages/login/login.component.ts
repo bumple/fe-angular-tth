@@ -27,6 +27,7 @@ export class LoginComponent implements OnInit {
 
   submit(){
     let data = this.formLogin?.value;
+    console.log(data);
     this.authService.checkAccount(data).subscribe((res:any) => {
       localStorage.setItem('token',res.access_token)
       localStorage.setItem('user',JSON.stringify(res.user))

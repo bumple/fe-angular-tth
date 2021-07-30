@@ -13,6 +13,6 @@ export class TransactionService {
   constructor(protected http: HttpClient) { }
 
   store(transaction: ITransaction):Observable<any>{
-    return this.http.post(environment.url + '/transaction', transaction);
+    return this.http.post(environment.url + '/auth/transaction', transaction);
   }
 }
