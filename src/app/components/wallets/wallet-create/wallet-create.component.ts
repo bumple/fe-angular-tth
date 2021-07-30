@@ -79,7 +79,7 @@ export class WalletCreateComponent implements OnInit {
       amount: [''],
       description: [''],
       icon: [''],
-      user_id: 1
+      user_id: 3
     })
 
 
