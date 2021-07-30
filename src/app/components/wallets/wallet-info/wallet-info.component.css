@@ -1,0 +1,8 @@
+.info-box.shadow.grow{
+  transition: all .3s ease-in-out;
+}
+.info-box.shadow:hover{
+  background-color: deepskyblue;
+  transform: scale(1.1);
+}
+

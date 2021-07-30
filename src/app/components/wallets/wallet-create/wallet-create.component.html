@@ -1,0 +1,50 @@
+<div class="container">
+  <form *ngIf="formRegister" [formGroup]="formRegister" (ngSubmit)="submit()">
+    <div class="card card-danger">
+      <div class="card-header">
+        <h3 class="card-title">Create Wallet</h3>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-8 row">
+            <div class="col-5">
+              <input type="text" formControlName="name" class="form-control" placeholder="Wallet's name">
+            </div>
+            <div class="col-7">
+              <input type="text" formControlName="amount" class="form-control" placeholder="Amount of money">
+            </div>
+            <div class="col-8 row ml-0 mt-2">
+                <div class="form-group col-12 ml-0">
+                  <label for="description">Description</label>
+                  <textarea  class="form-control" formControlName="description" id="description" rows="3" cols="8"></textarea>
+                </div>
+            </div>
+          </div>
+          <div class="col-4 row">
+            <div class="col-12 row">
+              <span style="font-family: 'Century Schoolbook L',fantasy; font-size: 18px" class="col-8 mt-2 ml-3 p-0">Let choose your wallet icon:</span>
+              <div class="col-3">
+                <div id="image-dropdown">
+                  <input type="radio" id="line1" name="icon" value="{{value}}" checked />
+                  <label style="opacity: 1 !important;display: block;background-image: url({{backgroundImg}})" for="line1">
+                  </label>
+                  <input *ngFor="let icon of iconList" type="radio" id="line{{icon.value}}" name="icon" value="{{icon.value}}" />
+                  <label  *ngFor="let icon of iconList;let i = index" style="background-image: url({{icon.img}})"
+                          for="line{{icon.value}}" (click)="select(i)" >
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-sm-1 mb-2 ml-2">
+        <button type="submit" class="btn btn-block btn-info">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
