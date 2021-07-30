@@ -7,32 +7,42 @@ import {AuthGuard} from "./AuthGuard/auth.guard";
 
 import {WalletInfoComponent} from "./components/wallets/wallet-info/wallet-info.component";
 import {WalletCreateComponent} from "./components/wallets/wallet-create/wallet-create.component";
+import {CategoryListComponent} from "./components/categories/category-list/category-list.component";
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent,
-  },
-  {
-    path: 'wallet',
-    component:LayoutsComponent,
-    children: [
-      {
-        path: 'info',
-        component: WalletInfoComponent
-      },
-      {
-        path: 'create',
-        component: WalletCreateComponent
-      }
-    ]
   },
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: '',
+    component: LayoutsComponent,
+    children: [
+      {
+        path: 'wallet',
+        children: [
+          {
+            path: 'info',
+            component: WalletInfoComponent
+          },
+          {
+            path: 'create',
+            component: WalletCreateComponent
+          }
+        ],
+      },
+      {
+        path: 'category',
+        component: CategoryListComponent
+      },
+    ], canActivate: [AuthGuard]
+  },
 
-  }
 
 ]
 
