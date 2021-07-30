@@ -6,9 +6,6 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image nav-item menu-open">
             <img src="../../../../../assets/images/anhtam.jpg" class="img-circle elevation-2" alt="User Image">
@@ -29,7 +26,6 @@
         <li class="user-panel mb-2 pb-2 d-flex nav-item">
           <a href="#" class="nav-link">
             <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="Icon Image">
-            <i class="fas fa-angle-down ml-1"></i>
             <p class="ml-3">
               Total:
             </p>
@@ -39,34 +35,27 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-table"></i>
-            <p>
-              Tables
-              <i class="fas fa-angle-left right"></i>
+          <a routerLink="" class="nav-link">
+            <i class="fas fa-columns"></i>
+            <p style="margin-left: 10px">
+              Dashboard
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="pages/tables/simple.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Simple Tables</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/tables/data.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>DataTables</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="pages/tables/jsgrid.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>jsGrid</p>
-              </a>
-            </li>
-          </ul>
         </li>
+        <li class="nav-item">
+          <a routerLink="wallet/info" class="nav-link">
+            <i class="fas fa-wallet"></i>
+            <p style="margin-left: 10px">
+              Wallet
+            </p>
+          </a>
+        </li>
+          <a routerLink="category" class="nav-link">
+            <i class="far fa-list-alt"></i>
+            <p style="margin-left: 10px">
+              Category
+            </p>
+          </a>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

@@ -9,7 +9,25 @@
 
         <form *ngIf="formRegister" [formGroup]="formRegister" (ngSubmit)="submit()">
           <div class="input-group mb-3">
-            <input formControlName="name" type="text" class="form-control" placeholder="Tên">
+            <!--            <p *ngIf="email && email.invalid ">{{getErrorMessageMail()}}</p>-->
+            <!--            <p *ngIf="name && name.invalid">{{getErrorMessageName()}}</p>-->
+            <!--            <p *ngIf="password && password.invalid ">{{getErrorMessagePassword()}}</p>-->
+            <input formControlName="name" type="text" class="form-control" placeholder="Tên"
+                   [ngClass]="name && name.invalid && (name.dirty || name.touched) ? 'is-invalid' : ''">
+            <div *ngIf="name && name.invalid && (name.dirty || name.touched)"
+                 class="text-danger">
+              <div class="input-group mb-3">
+                <div *ngIf="name.errors?.required">
+                  <!--                  Name is required.-->
+                </div>
+                <div *ngIf="name.errors?.minlength">
+                  <!--                  ten phai co tren 6 ki tu.-->
+                </div>
+                <div *ngIf="name.errors?.maxlength">
+                  <!--                  ten khong qua 32 ki tu.-->
+                </div>
+              </div>
+            </div>
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -17,7 +35,8 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input formControlName="email" type="email" class="form-control" placeholder="Email">
+            <input formControlName="email" type="email" class="form-control" placeholder="Email"
+                   [ngClass]="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -25,21 +44,22 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <input formControlName="password" type="password" class="form-control" placeholder="Mật khẩu">
+            <input formControlName="password" type="password" class="form-control" placeholder="Mật khẩu"
+                   [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-lock"></span>
               </div>
             </div>
           </div>
-          <!--        <div class="input-group mb-3">-->
-          <!--          <input type="password" class="form-control" placeholder="Retype password">-->
-          <!--          <div class="input-group-append">-->
-          <!--            <div class="input-group-text">-->
-          <!--              <span class="fas fa-lock"></span>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--        </div>-->
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" formControlName="password_confirmation" placeholder="Retype password">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
             <!-- /.col -->

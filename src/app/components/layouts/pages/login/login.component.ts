@@ -11,6 +11,8 @@ import {Router} from "@angular/router";
 export class LoginComponent implements OnInit {
   formLogin: FormGroup | undefined;
   errLogin: string = '';
+  message: string | undefined;
+
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -25,21 +27,16 @@ export class LoginComponent implements OnInit {
 
   submit(){
     let data = this.formLogin?.value;
-    console.log(this.authService.checkAccount(data))
+    console.log(data);
     this.authService.checkAccount(data).subscribe((res:any) => {
-      console.log(res)
-    })
-    // if (this.authService.checkAccount(data)){
-    //   localStorage.setItem('token','123');
-    //   this.router.navigate(['wallet']);
-    // }else {
-    //   this.errLogin = 'Sai mật khẩu hoặc tài khoản';
-    // }
+      localStorage.setItem('token',res.access_token)
+      localStorage.setItem('user',JSON.stringify(res.user))
+      console.log(localStorage.getItem('token'))
+      this.router.navigate(['']);
+    },
+      (error) => {
+        this.message = error.message;
+      })
   }
-
-
-
-
-
 
 }
