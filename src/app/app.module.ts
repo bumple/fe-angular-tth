@@ -14,36 +14,44 @@ import { TransactionsListComponent } from './components/transactions/transaction
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JWT_OPTIONS, JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-interceptor.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { WalletCreateComponent } from './components/wallets/wallet-create/wallet-create.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {WalletCreateComponent } from './components/wallets/wallet-create/wallet-create.component';
+import { WalletAddMoneyComponent } from './components/wallets/wallet-add-money/wallet-add-money.component';
+import { WalletListComponent } from './components/wallets/wallet-list/wallet-list.component';
+import { TransactionCreateComponent } from './components/transactions/transaction-create/transaction-create.component';
+import {DropDownListModule} from "@syncfusion/ej2-angular-dropdowns";
+
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LayoutsComponent,
-    NavbarComponent,
-    SidebarComponent,
-    LoginComponent,
-    RegisterComponent,
-    UserProfileComponent,
-    CategoryListComponent,
-    WalletInfoComponent,
-    TransactionsListComponent,
-    WalletCreateComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    JwtModule,
-    FormsModule
-  ],
+    declarations: [
+        AppComponent,
+        LayoutsComponent,
+        NavbarComponent,
+        SidebarComponent,
+        LoginComponent,
+        RegisterComponent,
+        UserProfileComponent,
+        CategoryListComponent,
+        WalletInfoComponent,
+        TransactionsListComponent,
+        WalletCreateComponent,
+        WalletAddMoneyComponent,
+        WalletListComponent,
+        TransactionCreateComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        JwtModule,
+        DropDownListModule,
+    ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     JwtHelperService],
-   
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
