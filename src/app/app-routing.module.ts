@@ -7,6 +7,7 @@ import {AuthGuard} from "./AuthGuard/auth.guard";
 import {WalletInfoComponent} from "./components/wallets/wallet-info/wallet-info.component";
 import {CategoryListComponent} from "./components/categories/category-list/category-list.component";
 import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
+import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
     path: '',
     component: LayoutsComponent,
     children: [
+      {
+        path: 'statistics',
+        component: MainContentComponent
+      },
       {
         path: 'wallet',
         children: [

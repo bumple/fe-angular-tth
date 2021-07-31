@@ -24,13 +24,12 @@
       <div class="row">
 <!--        <h1 *ngIf="(wallets)">Haven't create any wallet</h1>-->
         <div class="col-md-3" *ngFor="let wallet of wallets;index as i">
-          <div class="info-box shadow" (click)="getDetail(wallet.id)" >
+          <div class="info-box shadow" (click)="getDetail(wallet.id)">
            <span class="info-box-icon bg-warning"><img src="{{wallet.icon}}"></span>
             <div class="info-box-content">
               <span class="info-box-text">{{wallet.name}}</span>
               <span class="info-box-number">Total: {{wallet.amount}} VND</span>
             </div>
-
           </div>
         </div>
       </div>

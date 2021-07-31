@@ -16,6 +16,8 @@ import {JWT_OPTIONS, JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-interceptor.component';
 import { ReactiveFormsModule} from "@angular/forms";
 import { WalletDetailComponent } from './components/wallets/wallet-detail/wallet-detail.component';
+import { MainContentComponent } from './components/layouts/master/main-content/main-content.component';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +32,8 @@ import { WalletDetailComponent } from './components/wallets/wallet-detail/wallet
         WalletInfoComponent,
         TransactionsListComponent,
         WalletDetailComponent,
+        MainContentComponent,
+
     ],
     imports: [
         BrowserModule,
