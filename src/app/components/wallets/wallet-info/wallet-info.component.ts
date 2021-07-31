@@ -32,51 +32,51 @@ export class WalletInfoComponent implements OnInit {
     value: '2',
     img: 'assets/images/icons/2.png',
     checked: true
-  },{
+  }, {
     value: '3',
     img: 'assets/images/icons/3.png',
     checked: false
-  },{
+  }, {
     value: '4',
     img: 'assets/images/icons/4.png',
     checked: false
-  },{
+  }, {
     value: '5',
     img: 'assets/images/icons/5.png',
     checked: false
-  },{
+  }, {
     value: '6',
     img: 'assets/images/icons/6.png',
     checked: false
-  },{
+  }, {
     value: '7',
     img: 'assets/images/icons/7.png',
     checked: false
-  },{
+  }, {
     value: '8',
     img: 'assets/images/icons/8.png',
     checked: false
-  },{
+  }, {
     value: '9',
     img: 'assets/images/icons/9.png',
     checked: false
-  },{
+  }, {
     value: '10',
     img: 'assets/images/icons/10.png',
     checked: false
-  },{
+  }, {
     value: '11',
     img: 'assets/images/icons/11.png',
     checked: false
-  },{
+  }, {
     value: '12',
     img: 'assets/images/icons/12.png',
     checked: false
-  },{
+  }, {
     value: '13',
     img: 'assets/images/icons/13.png',
     checked: false
-  },{
+  }, {
     value: '14',
     img: 'assets/images/icons/14.png',
     checked: false
@@ -86,7 +86,7 @@ export class WalletInfoComponent implements OnInit {
   constructor(protected walletService: WalletService,
               protected fb: FormBuilder,
               protected transactionService: TransactionService,
-              protected categoryService:CategoryService,
+              protected categoryService: CategoryService,
               protected router: Router) {
   }
 
@@ -99,8 +99,8 @@ export class WalletInfoComponent implements OnInit {
 
     this.formAddMoney = this.fb.group({
       'id': [''],
-      'amount': ['',[Validators.required],[Validators.min(0)]],
-      'description': ['',[Validators.required]],
+      'amount': ['', [Validators.required], [Validators.min(0)]],
+      'description': ['', [Validators.required]],
     })
 
     this.formAddWallet = this.fb.group({
@@ -114,8 +114,8 @@ export class WalletInfoComponent implements OnInit {
     this.formAddTransaction = this.fb.group({
       'wallet_id': [''],
       'category_id': [''],
-      'money': ['',[Validators.required]],
-      'note': ['',[Validators.required]],
+      'money': ['', [Validators.required]],
+      'note': ['', [Validators.required]],
     })
   }
 
@@ -125,8 +125,8 @@ export class WalletInfoComponent implements OnInit {
     })
   }
 
-  getAllCategories(){
-    this.categoryService.getAllCategories().subscribe( res => {
+  getAllCategories() {
+    this.categoryService.getAllCategories().subscribe(res => {
       this.categories = res.data;
     })
   }
@@ -137,36 +137,31 @@ export class WalletInfoComponent implements OnInit {
     this.value = icon.value;
   }
 
-  create(){
+  create() {
     let data = this.formAddWallet?.value;
     data.icon = this.backgroundImg;
     console.log(data);
-    this.walletService.createWallet(data).subscribe( () => {
+    this.walletService.createWallet(data).subscribe(() => {
       this.getAllWallet();
-    } )
+    })
   }
 
   submit() {
     let data = this.formAddMoney?.value;
-    this.walletService.plusMoney(data.id,data).subscribe(res => {
+    this.walletService.plusMoney(data.id, data).subscribe(res => {
       this.getAllWallet();
     })
   }
 
-  createTran(){
+  createTran() {
     let data = this.formAddTransaction?.value;
-    this.transactionService.store(data).subscribe( () => {
+    this.transactionService.store(data).subscribe(() => {
       this.getAllWallet();
     })
   }
 
-  getDetail(id: any){
-    // console.log(id);
-   // this.walletService.findById(id).subscribe(res =>{
-   //   let data = res.data;
-   //   console.log(data)
-     this.router.navigate(['wallet/detail'], {queryParams: {id: id}});
-    // });
+  getDetail(id: any) {
+    this.router.navigate(['wallet/detail'], {queryParams: {id: id}});
   }
 
   get amount() {

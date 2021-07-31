@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {WalletService} from "../../../services/wallets/wallet.service";
 
 @Component({
@@ -12,7 +12,8 @@ export class WalletDetailComponent implements OnInit {
   walletById: any
 
   constructor(protected activatedRouter: ActivatedRoute,
-              protected walletService: WalletService) {
+              protected walletService: WalletService,
+              protected router: Router) {
   }
 
   ngOnInit(): void {
@@ -24,5 +25,9 @@ export class WalletDetailComponent implements OnInit {
     this.walletService.findById(id).subscribe(res => {
       this.walletById = res.data;
     })
+  }
+
+  back(){
+    this.router.navigate(['wallet/info']);
   }
 }

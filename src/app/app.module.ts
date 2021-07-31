@@ -18,7 +18,6 @@ import { ReactiveFormsModule} from "@angular/forms";
 import { WalletDetailComponent } from './components/wallets/wallet-detail/wallet-detail.component';
 import { MainContentComponent } from './components/layouts/master/main-content/main-content.component';
 
-
 @NgModule({
     declarations: [
         AppComponent,
@@ -33,7 +32,6 @@ import { MainContentComponent } from './components/layouts/master/main-content/m
         TransactionsListComponent,
         WalletDetailComponent,
         MainContentComponent,
-
     ],
     imports: [
         BrowserModule,
