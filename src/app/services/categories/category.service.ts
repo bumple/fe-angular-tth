@@ -10,13 +10,25 @@ import {ICategory} from "../../interface/icategory";
 export class CategoryService {
 
   category: ICategory[] = [];
-  constructor(protected http: HttpClient) { }
 
-  getAllCategories():Observable<any>{
+  constructor(protected http: HttpClient) {
+  }
+
+  getAllCategories(): Observable<any> {
     return this.http.get(environment.url + '/auth/category')
   }
 
-  store(category: ICategory):Observable<any>{
+  store(category: ICategory): Observable<any> {
     return this.http.post(environment.url + '/auth/category', category)
   }
+
+  findById(id: any){
+    return this.http.get(environment.url + '/auth/category/' + id);
+  }
+
+  update(id: any,category: ICategory){
+    return this.http.put(environment.url + '/auth/category/' + id,category);
+  }
 }
+
+
