@@ -1,12 +1,13 @@
 #image-dropdown {
   /*style the "box" in its minimzed state*/
-  border:1px solid black; width:70px; height:50px; overflow:hidden;
+  border:none; width:70px; height:50px; overflow:hidden;
   /*animate collapsing the dropdown from open to closed state (v. fast)*/
   -moz-transition: height 0.1s;
   -webkit-transition: height 0.1s;
   -ms-transition: height 0.1s;
   -o-transition: height 0.1s;
   transition: height 0.1s;
+
 }
 #image-dropdown:hover {
   /*when expanded, the dropdown will get native means of scrolling*/
@@ -38,5 +39,7 @@
 }
 #image-dropdown input:checked + label {
   /*tricky! labels immediately following a checked radio button (with our markup they are semantically related) should be fully opaque regardless of hover, and they should always be visible (i.e. even in the collapsed menu*/
-  /*  opacity:1 !important; display:block;*/
+    opacity:1 !important; display:block;
 }
+
+
