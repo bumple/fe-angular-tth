@@ -19,7 +19,7 @@ export class WalletService {
   }
 
   findById(id: any): Observable<any> {
-    return this.http.get(environment.url + '/auth/wallet/' + id)
+    return this.http.get(environment.url + '/auth/wallet/' + id);
   }
 
   plusMoney(id: number, wallet: IWallet): Observable<any> {
