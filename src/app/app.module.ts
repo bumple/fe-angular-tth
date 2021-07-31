@@ -17,6 +17,7 @@ import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-intercept
 import { ReactiveFormsModule} from "@angular/forms";
 import { WalletDetailComponent } from './components/wallets/wallet-detail/wallet-detail.component';
 import { MainContentComponent } from './components/layouts/master/main-content/main-content.component';
+import { CategoryEditComponent } from './components/categories/category-edit/category-edit.component';
 
 @NgModule({
     declarations: [
@@ -32,6 +33,7 @@ import { MainContentComponent } from './components/layouts/master/main-content/m
         TransactionsListComponent,
         WalletDetailComponent,
         MainContentComponent,
+        CategoryEditComponent,
     ],
     imports: [
         BrowserModule,

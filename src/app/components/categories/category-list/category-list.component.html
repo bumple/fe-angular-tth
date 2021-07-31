@@ -29,7 +29,7 @@
             <td>{{category.name}}</td>
             <td>{{category.note}}</td>
             <td>
-              <button class="btn bg-gradient-blue mr-2">
+              <button class="btn bg-gradient-blue mr-2" (click)="sendId(category.id)">
                 <i class="far fa-edit"></i>
               </button>
               <button class="btn bg-danger">

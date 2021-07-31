@@ -4,6 +4,7 @@ import {ICategory} from "../../../interface/icategory";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {WalletService} from "../../../services/wallets/wallet.service";
 import {IWallet} from "../../../interface/iwallet";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-category-list',
@@ -17,7 +18,8 @@ export class CategoryListComponent implements OnInit {
 
   constructor(protected categoryService: CategoryService,
               protected walletService: WalletService,
-              protected fb: FormBuilder) {
+              protected fb: FormBuilder,
+              protected router: Router) {
   }
 
   ngOnInit(): void {
@@ -30,11 +32,16 @@ export class CategoryListComponent implements OnInit {
     })
   }
 
+  sendId(id: any) {
+    this.router.navigate(['category/edit'], {queryParams: {id: id}});
+  }
+
   getAllCategories() {
     this.categoryService.getAllCategories().subscribe(res => {
       this.categories = res.data;
     })
   }
+
   getAllWallets() {
     this.walletService.getAllWallets().subscribe(res => {
       this.wallets = res.data;
