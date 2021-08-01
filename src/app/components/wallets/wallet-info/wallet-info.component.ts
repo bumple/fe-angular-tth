@@ -7,6 +7,7 @@ import {CategoryService} from "../../../services/categories/category.service";
 import {ICategory} from "../../../interface/icategory";
 import {Router} from "@angular/router";
 
+import {stringify} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-wallet-info',
