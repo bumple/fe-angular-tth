@@ -3,6 +3,7 @@ import {WalletService} from "../../../../services/wallets/wallet.service";
 import {IWallet} from "../../../../interface/iwallet";
 import {ICategory} from "../../../../interface/icategory";
 import {Router} from "@angular/router";
+import {AllserviceService} from "../../../../services/allservice.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -15,13 +16,18 @@ export class SidebarComponent implements OnInit {
   wallets: any;
 
   constructor(protected walletService: WalletService,
-              protected router: Router) {
+              protected router: Router,
+              protected allService: AllserviceService) {
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.username = value.name;
   }
 
   ngOnInit(): void {
     this.getAllWallets();
+    this.wallets = this.allService.dataList;
+    this.allService.getDataList().subscribe(res => {
+      this.allService.updateData(res.data);
+    });
   }
 
   getAllWallets() {

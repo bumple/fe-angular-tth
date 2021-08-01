@@ -154,16 +154,16 @@
               <ul class="nav nav-treeview">
                 <li class="nav-item" *ngFor="let wallet of wallets;index as i">
                   <a class="nav-link">
-                    <img style="width: 35px;height: 35px" src="{{wallet.icon}}">
+                    <img style="width: 25px;height: 25px" src="{{wallet.icon}}">
                     <p style="margin-left: 7px">{{wallet.name}}
                       <i class="fas fa-angle-left right"></i>
                     </p>
                   </a>
                   <ul class="nav nav-treeview">
-                    <li class="nav-item" *ngFor="let category of wallets[i].categories">
+                    <li style="margin-left: 35px" class="nav-item" *ngFor="let category of wallets[i].categories">
                     <a [routerLink]="['transaction/info',category.id]"  class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p> {{category.name}}</p>
+                      <i class="fas fa-angle-double-right"></i>
+                      <p style="margin-left: 7px">{{category.name}}</p>
                     </a>
                     </li>
                   </ul>
@@ -172,15 +172,6 @@
             </li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a routerLink="category" class="nav-link">
-            <i class="far fa-list-alt"></i>
-            <p style="margin-left: 10px">
-              Category
-            </p>
-          </a>
-        </li>
-
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

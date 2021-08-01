@@ -8,6 +8,7 @@ import {ICategory} from "../../../interface/icategory";
 import {Router} from "@angular/router";
 
 import {stringify} from "@angular/compiler/src/util";
+import {AllserviceService} from "../../../services/allservice.service";
 
 @Component({
   selector: 'app-wallet-info',
@@ -87,7 +88,8 @@ export class WalletInfoComponent implements OnInit {
               protected fb: FormBuilder,
               protected transactionService: TransactionService,
               protected categoryService: CategoryService,
-              protected router: Router) {
+              protected router: Router,
+              protected allService: AllserviceService) {
   }
 
   ngOnInit(): void {
@@ -136,9 +138,14 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
+      this.allService.getDataList().subscribe(res => {
+        this.allService.updateData(res.data);
+      });
       this.getAllWallet();
     })
   }
+
+
 
   submit() {
     let data = this.formAddMoney?.value;
