@@ -16,6 +16,7 @@ import {WalletCreateComponent} from './components/wallets/wallet-create/wallet-c
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {JWT_OPTIONS, JwtHelperService, JwtModule} from "@auth0/angular-jwt";
 import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-interceptor.component';
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -30,7 +31,6 @@ import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-intercept
     CategoryListComponent,
     WalletInfoComponent,
     TransactionsListComponent,
-
     WalletCreateComponent
   ],
   imports: [
@@ -39,7 +39,8 @@ import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-intercept
     HttpClientModule,
     ReactiveFormsModule,
     JwtModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

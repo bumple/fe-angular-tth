@@ -6,6 +6,7 @@ import {IWallet} from "../../../interface/iwallet";
 import {TransactionService} from "../../../services/transactions/transaction.service";
 import {CategoryService} from "../../../services/categories/category.service";
 import {ICategory} from "../../../interface/icategory";
+import {stringify} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-wallet-info',
@@ -41,6 +42,12 @@ export class WalletInfoComponent implements OnInit {
       'money': ['',[Validators.required]],
       'note': ['',[Validators.required]],
     })
+    let b = localStorage.getItem('user')
+    if (b != null) {
+      let a = JSON.parse(b)
+      console.log(a.name)
+    }
+
   }
 
   getAllCategories(){
