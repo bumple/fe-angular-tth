@@ -23,17 +23,18 @@ export class AuthService {
   }
 
   isLogin() {
-    
+    this.http.get(environment.url + '/auth/user-profile').subscribe((res:any)=>{
+      // console.log(res)
+    });
     return localStorage.getItem('token');
   }
 
   logout(){
     this.toastr.success('Đăng xuất thành công')
+    this.router.navigate(['login'])
     // @ts-ignore
-
     return this.http.post(environment.url + '/auth/logout').subscribe(()=>{
       localStorage.clear();
-      this.router.navigate(['login'])
     });
   }
 

@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../../../services/users/user.service";
+import {Route, Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,9 @@ export class RegisterComponent implements OnInit {
   formRegister: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private route: Router,
+              private toastr: ToastrService,) {
   }
 
   ngOnInit(): void {
@@ -24,9 +28,11 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
+    this.toastr.success('Đăng ký thành công')
     let data = this.formRegister?.value;
     this.userService.register(data).subscribe((res) => {
       console.log(res)
+      this.route.navigate(['login'])
     })
   }
 

@@ -26,6 +26,11 @@ export class WalletDetailComponent implements OnInit {
       this.walletById = res.data;
     })
   }
+  deleteWallet(walletId: any){
+    this.walletService.delete(walletId).subscribe((res:any)=>{
+      console.log(res)
+    })
+  }
 
   back(){
     this.router.navigate(['wallet/info']);
