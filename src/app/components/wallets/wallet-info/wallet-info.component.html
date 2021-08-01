@@ -3,26 +3,29 @@
     <div class="card-header">
       <div class="row">
         <div class="col-md-6 float-left">
-          <h1>Wallet List</h1>
+          <h1>{{username}}'s Wallet</h1>
         </div>
         <div class="col-md-6">
           <div style="float:right;">
-            <button type="button" class="btn bg-gradient-success mr-2" data-toggle="modal" data-target="#modal-default">
-              <i class="fas fa-dollar-sign"> Add Money</i>
-            </button>
-            |
-            <button type="button" class="btn bg-gradient-success ml-2" data-toggle="modal" data-target="#modal-lg">
-              <i class="fas fa-coins"> Add Transaction</i>
-            </button>
+            <span>
+              <img class="project_img" data-toggle="modal" data-target="#modal-default-create" src="assets/images/icons/wallet_plus.png">
+            </span>
+            <span>
+              <img class="project_img" data-toggle="modal" data-target="#modal-default" src="assets/images/icons/money_plus.png">
+            </span>
+            <span>
+              <img class="project_img" src="assets/images/icons/transaction.png" data-toggle="modal" data-target="#modal-lg">
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <div class="card-body">
+    <div class="card-body" >
       <div class="row">
-        <div class="col-md-3" *ngFor="let wallet of wallets">
-          <div class="info-box shadow">
-            <span class="info-box-icon bg-warning"><img src="assets/images/icons/{{wallet.id}}.png"> </span>
+<!--        <h1 *ngIf="(wallets)">Haven't create any wallet</h1>-->
+        <div class="col-md-3" *ngFor="let wallet of wallets;index as i">
+          <div class="info-box shadow" (click)="getDetail(wallet.id)">
+           <span class="info-box-icon bg-warning"><img src="{{wallet.icon}}"></span>
             <div class="info-box-content">
               <span class="info-box-text">{{wallet.name}}</span>
               <span class="info-box-number">Total: {{wallet.amount}} VND</span>
@@ -34,6 +37,68 @@
   </div>
 </div>
 
+<!--Modal create wallet-->
+<div class="modal fade" id="modal-default-create">
+  <div class="modal-dialog modal-default">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add Wallet</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form *ngIf="formAddWallet" [formGroup]="formAddWallet" (ngSubmit)="create()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-2">
+              <div class="form-group">
+                <label>Icon</label>
+                <div id="image-dropdown">
+                  <input type="radio" id="line1" name="icon" value="{{value}}" checked/>
+                  <label style="opacity: 1 !important;display: block;background-image: url({{backgroundImg}})"
+                         for="line1">
+                  </label>
+                  <input *ngFor="let icon of iconList" type="radio" id="line{{icon.value}}" name="icon"
+                         value="{{icon.value}}"/>
+                  <label *ngFor="let icon of iconList;let i = index" style="background-image: url({{icon.img}})"
+                         for="line{{icon.value}}" (click)="select(i)">
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label>Wallet Name </label>
+                <input type="text" formControlName="name" class="form-control" placeholder="Wallet's name">
+              </div>
+            </div>
+            <div class="col-sm-5">
+              <div class="form-group">
+                <label>Amount (<ins>VND</ins>)</label>
+                <input type="number" formControlName="amount" class="form-control" placeholder="Amount of money"
+                       min="0">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Description</label>
+                <textarea class="form-control" rows="3" placeholder="Note..." formControlName="description"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" id="close_modal_create" class="btn btn-outline-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" onclick="$('#close_modal_create').click();"
+                  [disabled]="formAddWallet.invalid" class="btn btn-outline-success">Save Wallet
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!--Modal add money-->
 <div class="modal fade" id="modal-default">
   <div class="modal-dialog">
@@ -58,7 +123,7 @@
             </div>
             <div class="col-sm-6">
               <div class="form-group">
-                <label>Amount (VND) </label>
+                <label>Amount (<ins>VND</ins>) </label>
                 <input class="form-control form-control-lg" type="number" formControlName="amount" placeholder="0"
                        min="0">
               </div>
@@ -81,7 +146,6 @@
     </div>
   </div>
 </div>
-
 <!--Modal add transaction-->
 <div class="modal fade" id="modal-lg">
   <div class="modal-dialog modal-lg">
@@ -115,8 +179,8 @@
             </div>
             <div class="col-sm-4">
               <div class="form-group">
-                <label> Money </label>
-                <input class="form-control form-control-lg" type="number" formControlName="money" placeholder="0"
+                <label>Amount (<ins>VND</ins>) </label>
+                <input class="form-control form-control-lg" type="number" formControlName="money" placeholder="Amount of money"
                        min="0">
               </div>
             </div>
@@ -146,6 +210,7 @@
     </div>
   </div>
 </div>
+
 
 
 

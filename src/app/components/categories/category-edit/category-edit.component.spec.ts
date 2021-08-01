@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WalletCreateComponent } from './wallet-create.component';
+import { CategoryEditComponent } from './category-edit.component';
 
-describe('WalletCreateComponent', () => {
-  let component: WalletCreateComponent;
-  let fixture: ComponentFixture<WalletCreateComponent>;
+describe('CategoryEditComponent', () => {
+  let component: CategoryEditComponent;
+  let fixture: ComponentFixture<CategoryEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WalletCreateComponent ]
+      declarations: [ CategoryEditComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WalletCreateComponent);
+    fixture = TestBed.createComponent(CategoryEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

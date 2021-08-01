@@ -1,0 +1,47 @@
+<div class="card" style="width: 50%">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Wallet's Detail</h1>
+      </div>
+      <div class="col-md-6">
+        <span style="float: right">
+          <button class="btn bg-gradient-teal"><i class="far fa-edit"></i></button>
+        <button class="btn bg-gradient-danger ml-2"><i class="fas fa-trash-alt"></i></button>
+        </span>
+
+      </div>
+    </div>
+
+  </div>
+  <div class="card-body">
+    <table class="table box-shadow--6dp shadow-lg">
+      <tbody>
+      <tr>
+        <th>Icon :</th>
+        <td><img src="{{walletById.icon}}"></td>
+      </tr>
+      <tr>
+        <th>Name:</th>
+        <td>{{walletById.name}}</td>
+      </tr>
+      <tr>
+        <th>Total Money:</th>
+        <td>{{walletById.amount}} VND</td>
+      </tr>
+      <tr>
+        <th>Description:</th>
+        <td>{{walletById.description}}</td>
+      </tr>
+      <tr>
+        <th>Created date:</th>
+        <td>{{walletById.created_at}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <button class="btn bg-gradient-secondary mt-2" (click)="back()">Back</button>
+    </div>
+  </div>
+</div>
+

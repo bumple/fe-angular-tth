@@ -1,3 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-angular-dropdowns/styles/material.css';
 @import "~ngx-toastr/toastr";
+
+.project_img{
+  height: 35px;
+  width: 35px;
+  margin-left:10px;
+}
+.project_img:hover{
+  transform: scale(1.6);
+  border-radius: 5px;
+}
+
+
+
 
