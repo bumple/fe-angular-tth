@@ -38,4 +38,7 @@ export class WalletService {
     return this.http.post(environment.url + '/auth/wallet', wallet)
   }
 
+  getCategoryByWalletId(id: any){
+    return this.http.get(environment.url + '/auth/category/info/' + id)
+  }
 }

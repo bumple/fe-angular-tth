@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {WalletService} from "../../../../services/wallets/wallet.service";
+import {IWallet} from "../../../../interface/iwallet";
+import {ICategory} from "../../../../interface/icategory";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +11,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  username: string | undefined;
+  wallets: any;
 
-  ngOnInit(): void {
+  constructor(protected walletService: WalletService,
+              protected router: Router) {
+    let value = JSON.parse(<string>localStorage.getItem('user'))
+    this.username = value.name;
   }
 
+  ngOnInit(): void {
+    this.getAllWallets();
+  }
+
+  getAllWallets() {
+    this.walletService.getAllWallets().subscribe(res => {
+      this.wallets = res.data;
+    })
+  }
+
+  sendId(id: any) {
+    this.router.navigate(['transaction/info'], {queryParams: {id: id}})
+  }
 }

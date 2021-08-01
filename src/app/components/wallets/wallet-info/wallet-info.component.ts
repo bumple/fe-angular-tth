@@ -16,7 +16,7 @@ import {Router} from "@angular/router";
 export class WalletInfoComponent implements OnInit {
 
   wallets: IWallet[] = [];
-  categories: ICategory[] = [];
+  categories: any;
 
   formAddWallet: FormGroup | undefined;
   formAddMoney: FormGroup | undefined;
@@ -26,7 +26,6 @@ export class WalletInfoComponent implements OnInit {
 
   backgroundImg = 'assets/images/icons/1.png';
   value = '1';
-
 
   iconList = [{
     value: '2',
@@ -92,30 +91,29 @@ export class WalletInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllWallet();
-    this.getAllCategories();
 
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.username = value.name;
 
     this.formAddMoney = this.fb.group({
-      'id': [''],
-      'amount': ['', [Validators.required], [Validators.min(0)]],
-      'description': ['', [Validators.required]],
+      id: [''],
+      amount: ['', [Validators.required], [Validators.min(0)]],
+      description: ['', [Validators.required]],
     })
 
     this.formAddWallet = this.fb.group({
-      name: [''],
-      amount: [''],
-      description: [''],
+      name: ['',[Validators.required]],
+      amount: ['',[Validators.required]],
+      description: ['',[Validators.required]],
       icon: [''],
-      user_id: 1
+      user_id: [value.id]
     })
 
     this.formAddTransaction = this.fb.group({
-      'wallet_id': [''],
-      'category_id': [''],
-      'money': ['', [Validators.required]],
-      'note': ['', [Validators.required]],
+      wallet_id: [''],
+      category_id: [''],
+      money: ['', [Validators.required]],
+      note: ['', [Validators.required]],
     })
   }
 
@@ -125,11 +123,6 @@ export class WalletInfoComponent implements OnInit {
     })
   }
 
-  getAllCategories() {
-    this.categoryService.getAllCategories().subscribe(res => {
-      this.categories = res.data;
-    })
-  }
 
   select(index: any) {
     let icon = this.iconList[index];
@@ -174,5 +167,12 @@ export class WalletInfoComponent implements OnInit {
 
   get note() {
     return this.formAddTransaction?.get('note');
+  }
+
+  onChange(event:any){
+    console.log(event.target.value)
+    this.walletService.getCategoryByWalletId(event.target.value).subscribe( res => {
+      this.categories = res;
+    })
   }
 }

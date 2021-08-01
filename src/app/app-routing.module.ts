@@ -9,6 +9,7 @@ import {CategoryListComponent} from "./components/categories/category-list/categ
 import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
 import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
 import {CategoryEditComponent} from "./components/categories/category-edit/category-edit.component";
+import {TransactionsListComponent} from "./components/transactions/transactions-list/transactions-list.component";
 
 
 const routes: Routes = [
@@ -45,7 +46,7 @@ const routes: Routes = [
         path: 'category',
         children: [
           {
-            path: 'info',
+            path: 'info/:id',
             component: CategoryListComponent,
           },
           {
@@ -54,6 +55,15 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'transaction',
+        children: [
+          {
+            path: 'info/:id',
+            component: TransactionsListComponent
+          }
+        ]
+      }
     ], canActivate: [AuthGuard]
   },
 
