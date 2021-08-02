@@ -23,18 +23,14 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllWallets();
-    this.wallets = this.allService.dataList;
+    this.allService.dataList.subscribe(data =>{
+      this.wallets = data;
+    });
     this.allService.getDataList().subscribe(res => {
       this.allService.updateData(res.data);
     });
   }
 
-  getAllWallets() {
-    this.walletService.getAllWallets().subscribe(res => {
-      this.wallets = res.data;
-    })
-  }
 
   sendId(id: any) {
     this.router.navigate(['transaction/info'], {queryParams: {id: id}})

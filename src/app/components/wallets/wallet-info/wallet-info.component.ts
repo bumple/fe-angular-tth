@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
 
 import {stringify} from "@angular/compiler/src/util";
 import {AllserviceService} from "../../../services/allservice.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-wallet-info',
@@ -89,7 +90,8 @@ export class WalletInfoComponent implements OnInit {
               protected transactionService: TransactionService,
               protected categoryService: CategoryService,
               protected router: Router,
-              protected allService: AllserviceService) {
+              protected allService: AllserviceService,
+              protected toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -105,9 +107,9 @@ export class WalletInfoComponent implements OnInit {
     })
 
     this.formAddWallet = this.fb.group({
-      name: ['',[Validators.required]],
-      amount: ['',[Validators.required]],
-      description: ['',[Validators.required]],
+      name: ['', [Validators.required]],
+      amount: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       icon: [''],
       user_id: [value.id]
     })
@@ -123,6 +125,7 @@ export class WalletInfoComponent implements OnInit {
   getAllWallet() {
     this.walletService.getAllWallets().subscribe(res => {
       this.wallets = res.data;
+      this.allService.updateData(res.data);
     })
   }
 
@@ -138,18 +141,15 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
-      this.allService.getDataList().subscribe(res => {
-        this.allService.updateData(res.data);
-      });
+      this.toastr.success('Create wallet success')
       this.getAllWallet();
-    })
+    });
   }
-
-
 
   submit() {
     let data = this.formAddMoney?.value;
     this.walletService.plusMoney(data.id, data).subscribe(res => {
+      this.toastr.success('Add money to wallet success')
       this.getAllWallet();
     })
   }
@@ -157,6 +157,7 @@ export class WalletInfoComponent implements OnInit {
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
+      this.toastr.success('Add transaction success')
       this.getAllWallet();
     })
   }
@@ -177,9 +178,9 @@ export class WalletInfoComponent implements OnInit {
     return this.formAddTransaction?.get('note');
   }
 
-  onChange(event:any){
+  onChange(event: any) {
     console.log(event.target.value)
-    this.walletService.getCategoryByWalletId(event.target.value).subscribe( res => {
+    this.walletService.getCategoryByWalletId(event.target.value).subscribe(res => {
       this.categories = res;
     })
   }
