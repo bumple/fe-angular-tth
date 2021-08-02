@@ -12,4 +12,9 @@ export class UserService {
   register(data: any){
     return this.http.post(environment.url + '/auth/register',data);
   }
+
+  getCurrentLoginUser(){
+    return localStorage.getItem('user');
+  }
+
 }

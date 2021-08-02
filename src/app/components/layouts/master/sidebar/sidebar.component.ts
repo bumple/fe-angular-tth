@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../../../services/users/user.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
+  userName: string = "Anonymous";
+  avatar: string = "assets/images/avt.jpg";
+  user: any;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.user = this.userService.getCurrentLoginUser();
+    this.userName = this.user
   }
 
 }
