@@ -10,7 +10,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^12.1.4",
+    "@angular/animations": "~12.1.2",
     "@angular/common": "~12.1.2",
     "@angular/compiler": "~12.1.2",
     "@angular/core": "~12.1.2",
@@ -21,6 +21,7 @@
     "@auth0/angular-jwt": "^5.0.2",
     "@syncfusion/ej2-angular-dropdowns": "^19.2.49",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
     "ngx-toastr": "^14.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

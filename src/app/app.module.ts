@@ -21,7 +21,6 @@ import {MainContentComponent} from './components/layouts/master/main-content/mai
 import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
 import {ToastrModule} from "ngx-toastr";
 
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -10,6 +10,9 @@ import {CategoryListComponent} from "./components/categories/category-list/categ
 import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
 import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
 import {CategoryEditComponent} from "./components/categories/category-edit/category-edit.component";
+import {TransactionsListComponent} from "./components/transactions/transactions-list/transactions-list.component";
+import {TestComponentRenderer} from "@angular/core/testing";
+import {TestComponent} from "./test/test.component";
 
 
 const routes: Routes = [
@@ -20,6 +23,10 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+  },
+  {
+    path: 'test',
+    component: TestComponent
   },
   {
     path: '',
@@ -46,12 +53,21 @@ const routes: Routes = [
         path: 'category',
         children: [
           {
-            path: 'info',
+            path: 'info/:id',
             component: CategoryListComponent,
           },
           {
             path: 'edit',
             component: CategoryEditComponent
+          }
+        ]
+      },
+      {
+        path: 'transaction',
+        children: [
+          {
+            path: 'info/:id',
+            component: TransactionsListComponent
           }
         ]
       },
