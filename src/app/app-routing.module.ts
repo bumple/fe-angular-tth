@@ -3,11 +3,13 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutsComponent} from "./components/layouts/master/layouts.component";
 import {LoginComponent} from "./components/layouts/pages/login/login.component";
 import {RegisterComponent} from "./components/layouts/pages/register/register.component";
-import {AuthGuard} from "./AuthGuard/auth.guard";
 
+import {AuthGuard} from "./AuthGuard/auth.guard";
 import {WalletInfoComponent} from "./components/wallets/wallet-info/wallet-info.component";
-import {WalletCreateComponent} from "./components/wallets/wallet-create/wallet-create.component";
 import {CategoryListComponent} from "./components/categories/category-list/category-list.component";
+import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
+import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
+import {CategoryEditComponent} from "./components/categories/category-edit/category-edit.component";
 
 
 const routes: Routes = [
@@ -24,6 +26,10 @@ const routes: Routes = [
     component: LayoutsComponent,
     children: [
       {
+        path: 'statistics',
+        component: MainContentComponent
+      },
+      {
         path: 'wallet',
         children: [
           {
@@ -31,19 +37,26 @@ const routes: Routes = [
             component: WalletInfoComponent
           },
           {
-            path: 'create',
-            component: WalletCreateComponent
+            path: 'detail',
+            component: WalletDetailComponent
           }
         ],
       },
       {
         path: 'category',
-        component: CategoryListComponent
+        children: [
+          {
+            path: 'info',
+            component: CategoryListComponent,
+          },
+          {
+            path: 'edit',
+            component: CategoryEditComponent
+          }
+        ]
       },
     ], canActivate: [AuthGuard]
   },
-
-
 ]
 
 @NgModule({

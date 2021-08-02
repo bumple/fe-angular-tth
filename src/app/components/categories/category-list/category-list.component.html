@@ -1,30 +1,39 @@
-<div class="container">
+<div class="container" style="width: 70%;margin: 0 auto">
   <div class="card">
-    <div class="card-header text-center">
-      <h1>Category</h1>
+    <div class="card-header">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Category</h1>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn bg-gradient-success float-right" data-toggle="modal" data-target="#modal-sm">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <div class="responsive">
-        <table class="table box-shadow--6dp">
+        <table class="table box-shadow--6dp" style="width: 100%">
           <thead>
           <tr>
             <th>No</th>
             <th>Name</th>
             <th>Description</th>
-            <th></th>
+            <th>Action</th>
           </tr>
           </thead>
           <tbody *ngFor="let category of categories;index as i">
           <tr>
-            <th scope="row">{{i+1}}</th>
+            <th scope="row">{{i + 1}}</th>
             <td>{{category.name}}</td>
             <td>{{category.note}}</td>
-            <td >
-              <button class="btn bg-gradient-blue mr-2">
-                Edit
+            <td>
+              <button class="btn bg-gradient-blue mr-2" (click)="sendId(category.id)">
+                <i class="far fa-edit"></i>
               </button>
               <button class="btn bg-danger">
-                Delete
+                <i class="fas fa-trash-alt"></i>
               </button>
             </td>
           </tr>
@@ -33,4 +42,53 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="modal-sm">
+  <div class="modal-dialog modal-default">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Create new Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form *ngIf="formAddCategory" [formGroup]="formAddCategory" (submit)="createCategory()">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Select Wallet</label>
+                <select class="form-control form-control-lg" formControlName="wallet_id">
+                  <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <!-- select -->
+              <div class="form-group">
+                <label>Category's Name </label>
+                <input class="form-control form-control-lg" type="text" formControlName="name" placeholder="Name">
+              </div>
+            </div>
+            <div class="col-sm-12">
+              <!-- select -->
+              <div class="form-group">
+                <label>Note </label>
+                <textarea class="form-control form-control-lg" formControlName="note" placeholder="Note..."></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" id="close_category" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" onclick="$('#close_category').click();" [disabled]="formAddCategory.invalid"
+                  class="btn btn-primary">Save
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
 </div>
