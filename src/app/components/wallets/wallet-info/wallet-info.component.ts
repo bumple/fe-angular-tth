@@ -27,6 +27,7 @@ export class WalletInfoComponent implements OnInit {
 
   username: string | undefined
 
+
   backgroundImg = 'assets/images/icons/1.png';
   value = '1';
 
@@ -114,6 +115,7 @@ export class WalletInfoComponent implements OnInit {
       user_id: [value.id]
     })
 
+
     this.formAddTransaction = this.fb.group({
       wallet_id: [''],
       category_id: [''],
@@ -121,14 +123,6 @@ export class WalletInfoComponent implements OnInit {
       note: ['', [Validators.required]],
     })
   }
-
-  getAllWallet() {
-    this.walletService.getAllWallets().subscribe(res => {
-      this.wallets = res.data;
-      this.allService.updateData(res.data);
-    })
-  }
-
 
   select(index: any) {
     let icon = this.iconList[index];
@@ -145,6 +139,17 @@ export class WalletInfoComponent implements OnInit {
       this.getAllWallet();
     });
   }
+  getAllWallet() {
+    this.walletService.getAllWallets().subscribe(res => {
+      this.wallets = res.data;
+      this.allService.updateData(res.data);
+    })
+  }
+
+
+
+
+
 
   submit() {
     let data = this.formAddMoney?.value;
