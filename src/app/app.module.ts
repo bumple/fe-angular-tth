@@ -20,6 +20,7 @@ import {WalletDetailComponent} from './components/wallets/wallet-detail/wallet-d
 import {MainContentComponent} from './components/layouts/master/main-content/main-content.component';
 import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
 import {ToastrModule} from "ngx-toastr";
+import { CategoryCreateComponent } from './components/categories/category-create/category-create.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import {ToastrModule} from "ngx-toastr";
     WalletDetailComponent,
     MainContentComponent,
     CategoryEditComponent,
+    CategoryCreateComponent,
   ],
   imports: [
     BrowserModule,
