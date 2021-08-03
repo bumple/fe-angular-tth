@@ -1,8 +1,191 @@
-<div style="display: block;">
-  <canvas baseChart
-          [data]="doughnutChartData"
-          [labels]="doughnutChartLabels"
-          [chartType]="doughnutChartType"
-          [colors] ="doughnutChartColour" >
-  </canvas>
+<div class="container">
+  <div class="card card-primary card-tabs">
+    <div class="card-header p-0 pt-1">
+      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home"
+             role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Month Statistic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile"
+             role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Date Statistic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages"
+             role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Today</a>
+        </li>
+        <!--          <li class="nav-item">-->
+        <!--            <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings"-->
+        <!--               role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Settings</a>-->
+        <!--          </li>-->
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="tab-content" id="custom-tabs-one-tabContent">
+        <!--      tab month statistic-->
+        <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+             aria-labelledby="custom-tabs-one-home-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+                <section>
+                  <div class="card">
+                    <div style="display: block;">
+                      <canvas baseChart
+                              [datasets]="barChartData"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [plugins]="barChartPlugins"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                      </canvas>
+                    </div>
+<!--                    <div style="display: block;">-->
+<!--                      <canvas baseChart-->
+<!--                              [data]="doughnutChartData"-->
+<!--                              [labels]="doughnutChartLabels"-->
+<!--                              [chartType]="doughnutChartType"-->
+<!--                              [colors]="doughnutChartColour">-->
+<!--                      </canvas>-->
+<!--                    </div>-->
+                  </div>
+                </section>
+              </div>
+              <div class="col-md-4">
+                <section>
+                  <div class="container">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4>This Month</h4>
+                      </div>
+                      <div class="card-body">
+                        <label>Select your wallet</label>
+                        <select class="form-control" (change)="onChange($event)">
+                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--        tab date statistic-->
+        <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+             aria-labelledby="custom-tabs-one-profile-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card">
+                  <section>
+                    <div class="card-body">
+                      <table class="table shadow-lg text-center">
+                        <thead>
+                        <tr>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>No</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <section>
+                  <div class="container">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4>Options</h4>
+                      </div>
+                      <div class="card-body">
+                        <label>Select your wallet</label>
+                        <select class="form-control" (change)="onChange($event)">
+                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                        </select>
+
+                        <label>From</label>
+                        <input class="form-control" type="date" [max]="today">
+
+                        <label>To</label>
+                        <input class="form-control" type="date" [max]="today" [defaultValue]="today">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--      tab today statistic-->
+        <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+             aria-labelledby="custom-tabs-one-messages-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="card">
+                  <section>
+                    <div class="card-body">
+                      <table class="table shadow-lg text-center">
+                        <thead>
+                        <tr>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>No</td>
+                          <td>No</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        </tbody>
+
+                      </table>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col-md-4">
+                  <section>
+                    <div class="container">
+                      <div class="card">
+                        <div class="card-header text-center">
+                          <h4>Options</h4>
+                        </div>
+                        <div class="card-body">
+                          <label>Select your wallet</label>
+                          <!--Select wallet-->
+                          <select class="form-control" (change)="onChange($event)">
+                            <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                          </select>
+                          <!--Choose Date-->
+                          <label>Date</label>
+                          <input class="form-control" type="date" [max]="today" [defaultValue]="today" [min]="today">
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--      <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel"-->
+        <!--           aria-labelledby="custom-tabs-one-settings-tab">-->
+        <!--      </div>-->
+      </div>
+    </div>
+    <!-- /.card -->
+  </div>
 </div>
+

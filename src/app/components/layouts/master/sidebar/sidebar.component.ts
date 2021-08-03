@@ -23,8 +23,11 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
     this.allService.dataList.subscribe(data =>{
       this.wallets = data;
+      console.log(this.wallets[0]);
     });
     this.allService.getDataList().subscribe(res => {
       this.allService.updateData(res.data);
