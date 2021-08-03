@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {WalletService} from "../../../services/wallets/wallet.service";
 import {ToastrService} from "ngx-toastr";
 import {AllserviceService} from "../../../services/allservice.service";
+import * as moment from 'moment'
+
 
 @Component({
   selector: 'app-wallet-detail',
@@ -13,6 +15,7 @@ export class WalletDetailComponent implements OnInit {
 
   walletById: any
 
+
   constructor(protected activatedRouter: ActivatedRoute,
               protected walletService: WalletService,
               protected router: Router,
@@ -22,6 +25,7 @@ export class WalletDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWalletById();
+
   }
 
   getWalletById() {

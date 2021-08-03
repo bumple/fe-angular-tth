@@ -8,13 +8,13 @@
         <div class="col-md-6">
           <div style="float:right;">
             <span>
-              <img class="project_img" data-toggle="modal" data-target="#modal-default-create" src="assets/images/icons/wallet_plus.png">
+              <img class="project_img" data-toggle="modal" data-target="#modal-default-create" src="assets/images/icons/addwallet.jpg">
             </span>
             <span>
-              <img class="project_img" data-toggle="modal" data-target="#modal-default" src="assets/images/icons/money_plus.png">
+              <img class="project_img" data-toggle="modal" data-target="#modal-default" src="assets/images/icons/addmoney.png">
             </span>
             <span>
-              <img class="project_img" src="assets/images/icons/transaction.png" data-toggle="modal" data-target="#modal-lg">
+              <img class="project_img" src="assets/images/icons/transaction.jpg" data-toggle="modal" data-target="#modal-lg">
             </span>
           </div>
         </div>
@@ -28,7 +28,7 @@
            <span class="info-box-icon bg-warning"><img src="{{wallet.icon}}"></span>
             <div class="info-box-content">
               <span class="info-box-text">{{wallet.name}}</span>
-              <span class="info-box-number">Total: {{wallet.amount}} VND</span>
+              <span class="info-box-number">Total: {{wallet.amount | number:'1.0'}} VND</span>
             </div>
           </div>
         </div>
@@ -194,7 +194,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label>Date</label>
-                <input type="date" class="form-control">
+                <input type="date" class="form-control" [max]="today" formControlName="date">
               </div>
             </div>
           </div>
@@ -211,58 +211,3 @@
     </div>
   </div>
 </div>
-
-
-
-<!--this.formAddCategory = this.fb.group({-->
-<!--wallet_id: [],-->
-<!--name: ['', [Validators.required]],-->
-<!--note: ['', [Validators.required]],-->
-<!--  })-->
-<!--data-toggle="modal" data-target="#modal-default-category"-->
-<!--Modal create category-->
-<!--<div class="modal fade" id="modal-default-category">-->
-<!--  <div class="modal-dialog">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h4 class="modal-title">Create new category</h4>-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <form *ngIf="formAddCategory" [formGroup]="formAddCategory" (ngSubmit)="createCate()">-->
-<!--        <div class="modal-body">-->
-<!--          <div class="row">-->
-<!--            <div class="col-sm-6">-->
-<!--              &lt;!&ndash; select &ndash;&gt;-->
-<!--              <div class="form-group">-->
-<!--                <label>Select your Wallet </label>-->
-<!--                <select class="form-control form-control-lg" formControlName="wallet_id">-->
-<!--                  <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>-->
-<!--                </select>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="col-sm-6">-->
-<!--              <div class="form-group">-->
-<!--                <label>Category's Name</label>-->
-<!--                <input class="form-control form-control-lg" type="text" formControlName="name" placeholder="Name">-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="col-sm-12">-->
-<!--              <div class="form-group">-->
-<!--                <label>Note</label>-->
-<!--                <textarea class="form-control" rows="3" placeholder="Note..." formControlName="note"></textarea>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        <div class="modal-footer justify-content-between">-->
-<!--          <button type="button" id="close_modal" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>-->
-<!--          <button type="submit" onclick="$('#close_modal').click();" [disabled]="formAddCategory.invalid"-->
-<!--                  class="btn btn-outline-success">Save-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </form>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->

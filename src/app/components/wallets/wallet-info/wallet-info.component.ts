@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {stringify} from "@angular/compiler/src/util";
 import {AllserviceService} from "../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-wallet-info',
@@ -95,8 +96,11 @@ export class WalletInfoComponent implements OnInit {
               protected toastr: ToastrService) {
   }
 
+  today = this.getDate();
+
   ngOnInit(): void {
     this.getAllWallet();
+
 
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.username = value.name;
@@ -108,10 +112,11 @@ export class WalletInfoComponent implements OnInit {
     })
 
     this.formAddWallet = this.fb.group({
+      icon: [''],
       name: ['', [Validators.required]],
       amount: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      icon: [''],
+      date: [this.today],
       user_id: [value.id]
     })
 
@@ -121,7 +126,22 @@ export class WalletInfoComponent implements OnInit {
       category_id: [''],
       money: ['', [Validators.required]],
       note: ['', [Validators.required]],
+      date: [this.today, [Validators.required]]
     })
+  }
+
+  getDate() {
+    let today = new Date();
+    let dd: any = today.getDate();
+    let mm: any = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    let yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+    return yyyy + '-' + mm + '-' + dd;
   }
 
   select(index: any) {
@@ -139,16 +159,13 @@ export class WalletInfoComponent implements OnInit {
       this.getAllWallet();
     });
   }
+
   getAllWallet() {
     this.walletService.getAllWallets().subscribe(res => {
       this.wallets = res.data;
       this.allService.updateData(res.data);
     })
   }
-
-
-
-
 
 
   submit() {
@@ -167,6 +184,7 @@ export class WalletInfoComponent implements OnInit {
     })
   }
 
+
   getDetail(id: any) {
     this.router.navigate(['wallet/detail'], {queryParams: {id: id}});
   }
@@ -181,6 +199,10 @@ export class WalletInfoComponent implements OnInit {
 
   get note() {
     return this.formAddTransaction?.get('note');
+  }
+
+  get date() {
+    return this.formAddTransaction?.get('date');
   }
 
   onChange(event: any) {

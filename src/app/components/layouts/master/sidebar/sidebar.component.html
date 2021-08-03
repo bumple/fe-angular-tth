@@ -158,12 +158,14 @@
                     <p style="margin-left: 7px">{{wallet.name}}
                       <i class="fas fa-angle-left right"></i>
                     </p>
+                    <span style="float: right;margin-right: 15px">({{wallets[i].categories.length}})</span>
                   </a>
                   <ul class="nav nav-treeview">
                     <li style="margin-left: 35px" class="nav-item" *ngFor="let category of wallets[i].categories">
                     <a [routerLink]="['transaction/info',category.id]"  class="nav-link">
                       <i class="fas fa-angle-double-right"></i>
                       <p style="margin-left: 7px">{{category.name}}</p>
+                      <span style="float: right;margin-right: 32px">({{wallet.transactions.length}})</span>
                     </a>
                     </li>
                   </ul>
@@ -172,23 +174,15 @@
             </li>
           </ul>
         </li>
-<!--        <li class="nav-item">-->
-<!--          <a class="nav-link">-->
-<!--            <i class="fas fa-archive"></i>-->
-<!--            <p style="margin-left: 10px">-->
-<!--              Category-->
+        <li class="nav-item">
+          <a routerLink="category/info" class="nav-link">
+            <i class="fas fa-archive"></i>
+            <p style="margin-left: 10px">
+              Category
 <!--              <i class="fas fa-angle-left right"></i>-->
-<!--            </p>-->
-<!--          </a>-->
-<!--          <ul class="nav nav-treeview">-->
-<!--            <a routerLink="category/create" class="nav-link">-->
-<!--              <i class="far fa-circle nav-icon"></i>-->
-<!--              <p>-->
-<!--                Add New Category-->
-<!--              </p>-->
-<!--            </a>-->
-<!--          </ul>-->
-<!--        </li>-->
+            </p>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

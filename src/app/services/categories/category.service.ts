@@ -29,6 +29,10 @@ export class CategoryService {
   update(id: any,category: ICategory){
     return this.http.put(environment.url + '/auth/category/' + id,category);
   }
+
+  delete(id:number){
+    return this.http.delete(`${environment.url}/auth/category/${id}`);
+  }
 }
 
 

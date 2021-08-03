@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {WalletService} from "../../../../services/wallets/wallet.service";
 import {TransactionService} from "../../../../services/transactions/transaction.service";
@@ -6,7 +6,8 @@ import {CategoryService} from "../../../../services/categories/category.service"
 import {Router} from "@angular/router";
 import {AllserviceService} from "../../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
-import {IWallet} from "../../../../interface/iwallet";
+import {ChartType} from 'chart.js';
+import {MultiDataSet, Label, Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-main-content',
@@ -15,12 +16,15 @@ import {IWallet} from "../../../../interface/iwallet";
 })
 export class MainContentComponent implements OnInit {
 
+  // Doughnut
+  public doughnutChartLabels: Label[] = ['Download Sales', 'testing', 'Duyen'];
+  public doughnutChartData: MultiDataSet = [
+    [100, 0, 0],
+  ];
+  public doughnutChartType: ChartType = 'doughnut';
+  public doughnutChartColour: Color[] = [{backgroundColor: ['green','red','yellow']},
+  ];
 
-
-  wallets: IWallet[] = [];
-  formAddWallet: FormGroup | undefined;
-  formAddCategory: FormGroup | undefined;
-  username: string | undefined
 
   constructor(protected walletService: WalletService,
               protected fb: FormBuilder,
@@ -28,20 +32,12 @@ export class MainContentComponent implements OnInit {
               protected categoryService: CategoryService,
               protected router: Router,
               protected allService: AllserviceService,
-              protected toastr: ToastrService) { }
+              protected toastr: ToastrService) {
+
+  }
 
   ngOnInit(): void {
-    let value = JSON.parse(<string>localStorage.getItem('user'))
-    this.username = value.name;
   }
 
-
-
-  gotoWalletInfo(){
-    this.router.navigate(['wallet/info']);
-  }
-
-  createCate(){
-
-  }
 }
+

@@ -31,7 +31,6 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-
   sendId(id: any) {
     this.router.navigate(['transaction/info'], {queryParams: {id: id}})
   }

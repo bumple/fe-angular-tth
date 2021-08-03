@@ -18,9 +18,8 @@ import {AuthInterceptor} from './AuthInterceptor/auth-interceptor/auth-intercept
 import {ReactiveFormsModule} from "@angular/forms";
 import {WalletDetailComponent} from './components/wallets/wallet-detail/wallet-detail.component';
 import {MainContentComponent} from './components/layouts/master/main-content/main-content.component';
-import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
 import {ToastrModule} from "ngx-toastr";
-import { CategoryCreateComponent } from './components/categories/category-create/category-create.component';
+import {ChartsModule} from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -36,8 +35,6 @@ import { CategoryCreateComponent } from './components/categories/category-create
     TransactionsListComponent,
     WalletDetailComponent,
     MainContentComponent,
-    CategoryEditComponent,
-    CategoryCreateComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +43,7 @@ import { CategoryCreateComponent } from './components/categories/category-create
     ReactiveFormsModule,
     JwtModule,
     FormsModule,
+    ChartsModule,
     ToastrModule.forRoot(),
   ],
   providers: [
