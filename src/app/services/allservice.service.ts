@@ -18,9 +18,8 @@ export class AllserviceService {
   }
 
   updateData(data: any) {
-    console.log(data);
+    // console.log(data);
     this._dataListSource.next(data);
-
   }
 }
 

@@ -2,37 +2,47 @@
   <div class="card">
     <div class="card-header">
       <div class="row">
-        <div class="col-md-6">
-          <h1>Category</h1>
+        <h1>Category</h1>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-6">
+          <label>Select your wallet</label>
+          <select class="form-control mb-3" style="width: 50%" (change)="onChange($event)">
+            <option *ngIf="wallets">--None--</option>
+            <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+          </select>
         </div>
-        <div class="col-md-6">
-          <button type="button" class="btn bg-gradient-success float-right" data-toggle="modal" data-target="#modal-sm">
+        <div class="col-sm-6">
+          <button type="button" class="btn bg-gradient-success float-right mt-4" data-toggle="modal"
+                  data-target="#modal-sm">
             <i class="fas fa-plus"></i>
           </button>
         </div>
       </div>
-    </div>
-    <div class="card-body">
+
       <div class="responsive">
-        <table class="table box-shadow--6dp" style="width: 100%">
+        <table class="table box-shadow--6dp text-center" style="width: 100%">
           <thead>
           <tr>
             <th>No</th>
-            <th>Name</th>
+            <th>Category's Name</th>
             <th>Description</th>
             <th>Action</th>
           </tr>
           </thead>
-          <tbody *ngFor="let category of categories;index as i">
+          <tbody *ngFor="let category of categories;index as a">
           <tr>
-            <th scope="row">{{i + 1}}</th>
+            <th scope="row">{{a + 1}}</th>
             <td>{{category.name}}</td>
             <td>{{category.note}}</td>
             <td>
-              <button class="btn bg-gradient-blue mr-2" (click)="sendId(category.id)">
+              <button class="btn bg-gradient-blue mr-2" data-toggle="modal" data-target="#modal-edit-category"
+                      (click)="sendId(category.id)">
                 <i class="far fa-edit"></i>
               </button>
-              <button class="btn bg-danger">
+              <button class="btn bg-danger" (click)="delete(category.id)">
                 <i class="fas fa-trash-alt"></i>
               </button>
             </td>
@@ -91,4 +101,35 @@
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-edit-category">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Edit Category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form *ngIf="formUpdateCategory" [formGroup]="formUpdateCategory" (submit)="update()">
+          <div class="form-group">
+            <label>Category's Name </label>
+            <input class="form-control form-control-lg" type="text" formControlName="name" placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label>Note </label>
+            <textarea class="form-control form-control-lg" formControlName="note" placeholder="Note..."></textarea>
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" id="shut_down_modal" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" onclick="$('#shut_down_modal').click()" class="btn bg-gradient-success">Edit</button>
+          </div>
+        </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
 </div>
