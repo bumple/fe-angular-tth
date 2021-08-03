@@ -98,9 +98,9 @@ export class WalletInfoComponent implements OnInit {
 
   today = this.getDate();
 
+
   ngOnInit(): void {
     this.getAllWallet();
-
 
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.username = value.name;
@@ -179,8 +179,8 @@ export class WalletInfoComponent implements OnInit {
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
-      this.toastr.success('Add transaction success')
       this.getAllWallet();
+      this.toastr.success('Add transaction success')
     })
   }
 
