@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder} from "@angular/forms";
 import {WalletService} from "../../../../services/wallets/wallet.service";
 import {TransactionService} from "../../../../services/transactions/transaction.service";
 import {CategoryService} from "../../../../services/categories/category.service";
@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 import {AllserviceService} from "../../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
-import {MultiDataSet, Label, Color} from 'ng2-charts';
+import {Label} from 'ng2-charts';
 
 @Component({
   selector: 'app-main-content',
@@ -19,25 +19,18 @@ export class MainContentComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sep','Oct','Nov','Dec'];
+  public barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40,40,40,40,40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90,90,90,90,90,], label: 'Series B' }
+    {data: [65, 59, 80, 81, 56, 55, 40, 40, 40, 40, 40,40], label: 'Series A'},
+    {data: [28, 48, 40, 19, 86, 27, 90, 90, 90, 90, 90,50], label: 'Series B'}
   ];
 
-  // Doughnut
-  // public doughnutChartLabels: Label[] = ['Income', 'Outcome','Remain'];
-  // public doughnutChartData: MultiDataSet = [
-  //   [100, 80,50],
-  // ];
-  // public doughnutChartType: ChartType = 'line';
-  // public doughnutChartColour: Color[] = [{backgroundColor: ['green','red','blue']},
-  // ];
-
+  tranArray: any;
+  cateName: any;
   wallets: any;
   today = this.getDate();
 
@@ -48,22 +41,47 @@ export class MainContentComponent implements OnInit {
               protected router: Router,
               protected allService: AllserviceService,
               protected toastr: ToastrService) {
-
   }
 
   ngOnInit(): void {
     this.getAllWallets();
   }
 
-  getAllWallets(){
+  getAllWallets() {
     this.walletService.getAllWallets().subscribe(res => {
       this.wallets = res.data;
     })
   }
 
   onChange(event: any) {
-    console.log(event.target.value);
+    // console.log(event.target.value);
+    this.categoryService.cateStatisticToday(event.target.value).subscribe(res => {
+      // console.log(res,'today');
+      this.tranArray = res;
+      this.tranArray = this.tranArray[0];
+      // this.cateName = this.tranArray[1];
+      this.cateName = res;
+      this.cateName = this.cateName[1];
+      // Chuyển đổi object this.cateName -> mảng cateIndex
+      let cateIndex = Object.keys(this.cateName).map((item) =>{
+        return this.cateName[item];
+      });
+      for (let i = 0; i < this.tranArray.length; i++) {
+        for (let j = 0; j < this.tranArray[i].length; j++) {
+          for (let k = 0; k < cateIndex.length; k++) {
+            if(this.tranArray[i][j].category_id == this.cateName.index){
+              this.tranArray[i][j].category_id = cateIndex[k];
+            }
+            // console.log(cateIndex[this.tranArray[i][j].category_id][0])
+          }
+        }
+      }
 
+      console.log(this.tranArray,'test')
+      console.log(cateIndex,'test123')
+      // @ts-ignore
+      console.log(this.cateName,'catename')
+    })
   }
 
   getDate() {
