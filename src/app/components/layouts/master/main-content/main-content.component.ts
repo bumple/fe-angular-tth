@@ -54,26 +54,35 @@ export class MainContentComponent implements OnInit {
   }
 
   onChange(event: any) {
-    // console.log(event.target.value);
     this.categoryService.cateStatisticToday(event.target.value).subscribe(res => {
-      // console.log(res,'today');
       this.tranArray = res;
       this.tranArray = this.tranArray[0];
-      // this.cateName = this.tranArray[1];
       this.cateName = res;
       this.cateName = this.cateName[1];
       // Chuyển đổi object this.cateName -> mảng cateIndex
       let cateIndex = Object.keys(this.cateName).map((item) =>{
         return this.cateName[item];
       });
+
+      var result = Object.keys(this.cateName).map((key) => [Number(key), this.cateName[key]]);
+      console.log(result,'result');
+
+
       for (let i = 0; i < this.tranArray.length; i++) {
         for (let j = 0; j < this.tranArray[i].length; j++) {
-          for (let k = 0; k < cateIndex.length; k++) {
-            if(this.tranArray[i][j].category_id == this.cateName.index){
-              this.tranArray[i][j].category_id = cateIndex[k];
-            }
-            // console.log(cateIndex[this.tranArray[i][j].category_id][0])
+          switch (this.tranArray[i][j].category_id){
+            case result :
           }
+          // for (let k = 0; k < cateIndex.length; k++) {
+          // if(this.tranArray[i][j].category_id == this.cateName.index){
+          //   this.tranArray[i][j].category_id = cateIndex[k];
+          // }
+          // }
+          // console.log(cateIndex[this.tranArray[i][j].category_id][0],'12345')
+          // let a = this.tranArray[i][j].category_id;
+          // this.tranArray[i][j].category_id == this.cateName.`${a}` ?
+          //   this.tranArray[i][j].category_id = this.cateName.a
+          // }
         }
       }
 
