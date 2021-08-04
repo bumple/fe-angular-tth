@@ -47,10 +47,10 @@ export class LoginComponent implements OnInit {
   }
 
   getErrorMessageEmail(){
-    return this.email?.hasError('email') ? 'Email is required' : '';
+    return this.email?.hasError('required') ? 'Email is required' : '';
   }
 
   getErrorMessagePassword(){
-    return this.email?.hasError('password') ? 'Password is required' : '';
+    return this.email?.hasError('required') ? 'Password is required' : '';
   }
 }
