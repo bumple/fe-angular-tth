@@ -27,7 +27,7 @@
              aria-labelledby="custom-tabs-one-home-tab">
           <div class="container">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-8" style="margin:0 auto">
                 <section>
                   <div class="card">
                     <div style="display: block;">
@@ -43,23 +43,6 @@
                   </div>
                 </section>
               </div>
-              <div class="col-md-4">
-                <section>
-                  <div class="container">
-                    <div class="card">
-                      <div class="card-header text-center">
-                        <h4>This Month</h4>
-                      </div>
-                      <div class="card-body">
-                        <label>Select your wallet</label>
-                        <select class="form-control" (change)="onChange($event)">
-                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              </div>
             </div>
           </div>
         </div>
@@ -68,7 +51,7 @@
              aria-labelledby="custom-tabs-one-profile-tab">
           <div class="container">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-9">
                 <div class="card">
                   <section>
                     <div class="card-body">
@@ -76,23 +59,25 @@
                         <thead>
                         <tr>
                           <td>No</td>
-                          <td>No</td>
-                          <td>No</td>
-                          <td>No</td>
+                          <td>Wallet</td>
+                          <td>Income</td>
+                          <td>Outcome</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <tr *ngFor="let filter of wallet_name;index as i">
+                          <td>{{i + 1}}</td>
+                          <td>{{filter}}</td>
+                          <td>{{moneyFlow[i].Income || 0}}</td>
+                          <td>{{moneyFlow[i].Outcome || 0}}</td>
+                        </tr>
                         </tbody>
                       </table>
                     </div>
                   </section>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <section>
                   <div class="container">
                     <div class="card">
@@ -100,16 +85,20 @@
                         <h4>Options</h4>
                       </div>
                       <div class="card-body">
-                        <label>Select your wallet</label>
-                        <select class="form-control" (change)="onChange($event)">
-                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
-                        </select>
+                        <!--                        <label>Select your wallet</label>-->
+                        <!--                        <select class="form-control" (change)="onChange($event)">-->
+                        <!--                          <option>&#45;&#45;None&#45;&#45;</option>-->
+                        <!--                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>-->
+                        <!--                        </select>-->
+                        <form *ngIf="formChooseDate" [formGroup]="formChooseDate">
+                          <label>From</label>
+                          <input class="form-control" type="date" formControlName="from" [max]="today"
+                                 (change)="pickDate()">
 
-                        <label>From</label>
-                        <input class="form-control" type="date" [max]="today">
-
-                        <label>To</label>
-                        <input class="form-control" type="date" [max]="today" [defaultValue]="today">
+                          <label>To</label>
+                          <input class="form-control" type="date" formControlName="to" [max]="today"
+                                 (change)="pickDate()">
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -118,12 +107,12 @@
             </div>
           </div>
         </div>
-        <!--      tab today statistic-->
+        <!--tab today statistic-->
         <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
              aria-labelledby="custom-tabs-one-messages-tab">
           <div class="container">
             <div class="row">
-              <div class="col-md-8">
+              <div class="col-md-9">
                 <div class="card">
                   <section>
                     <div class="card-body">
@@ -133,45 +122,57 @@
                           <td>No</td>
                           <td>Transaction Code</td>
                           <td>Category</td>
-                          <td>Amount</td>
+                          <td>Note</td>
+                          <td>Amount (
+                            <ins>VND</ins>
+                            )
+                          </td>
                         </tr>
                         </thead>
-                        <tbody *ngFor="let tran of tranArray;index as i">
-                        <tr *ngFor="let item of tran">
-                          <td>{{i+1}}</td>
-                          <td>{{item.id}}</td>
-                          <td>{{tran.category_id}}</td>
-                          <td>{{item.money}}</td>
+                        <tbody>
+                        <tr *ngFor="let tran of tranArray;index as i">
+                          <td>{{i + 1}}</td>
+                          <td>{{tran.id}}</td>
+                          <td>{{tran.category.name}}</td>
+                          <td>{{tran.note}}</td>
+                          <td>{{tran.money | number: '1.0'}}</td>
                         </tr>
                         </tbody>
-
-
+                        <tfoot>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Total Remain:</td>
+                          <td>{{sum | number:'1.0'}} VND</td>
+                        </tr>
+                        </tfoot>
                       </table>
                     </div>
                   </section>
                 </div>
               </div>
-              <div class="col-md-4">
-                  <section>
-                    <div class="container">
-                      <div class="card">
-                        <div class="card-header text-center">
-                          <h4>Options</h4>
-                        </div>
-                        <div class="card-body">
-                          <label>Select your wallet</label>
-                          <!--Select wallet-->
-                          <select class="form-control" (change)="onChange($event)">
-                            <option>--None--</option>
-                            <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
-                          </select>
-                          <!--Choose Date-->
-                          <label>Date</label>
-                          <input class="form-control" type="date" [max]="today" [defaultValue]="today" [min]="today">
-                        </div>
+              <div class="col-md-3">
+                <section>
+                  <div class="container">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4>Options</h4>
+                      </div>
+                      <div class="card-body">
+                        <label>Select your wallet</label>
+                        <!--Select wallet-->
+                        <select class="form-control" (change)="onChange($event)">
+                          <option>--None--</option>
+                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                        </select>
+                        <!--Choose Date-->
+                        <label>Date</label>
+                        <input class="form-control" type="date" [max]="today" [defaultValue]="today" [min]="today">
                       </div>
                     </div>
-                  </section>
+                  </div>
+                </section>
               </div>
             </div>
           </div>

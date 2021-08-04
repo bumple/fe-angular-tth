@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   submit(){
     let data = this.formLogin?.value;
     console.log(data);
-    this.toastr.success('Đăng nhập thành công')
+
 
     this.authService.checkAccount(data).subscribe((res:any) => {
       localStorage.setItem('token',res.access_token)

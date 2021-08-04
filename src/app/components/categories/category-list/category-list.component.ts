@@ -50,7 +50,6 @@ export class CategoryListComponent implements OnInit {
     let data = this.formAddCategory?.value;
     this.categoryService.store(data).subscribe(() => {
       this.walletService.getCategoryByWalletId(this.event_value).subscribe(res => {
-        this.toastr.success('Add new category success')
         this.categories = res;
       });
     })
@@ -67,7 +66,6 @@ export class CategoryListComponent implements OnInit {
     if (confirm('Are you sure ?!')) {
       this.categoryService.delete(id).subscribe(() => {
         this.walletService.getCategoryByWalletId(this.event_value).subscribe(res => {
-          this.toastr.success('Delete success')
           this.categories = res;
         });
       })
