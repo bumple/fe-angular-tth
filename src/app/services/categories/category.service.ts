@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {ICategory} from "../../interface/icategory";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class CategoryService {
 
   category: ICategory[] = [];
 
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient,
+              protected toastr: ToastrService) {
   }
 
   getAllCategories(): Observable<any> {
@@ -19,6 +21,7 @@ export class CategoryService {
   }
 
   store(category: ICategory): Observable<any> {
+    this.toastr.success('Add new category success')
     return this.http.post(environment.url + '/auth/category', category)
   }
 
@@ -27,10 +30,12 @@ export class CategoryService {
   }
 
   update(id: any,category: ICategory){
+    this.toastr.success('Update successfully')
     return this.http.put(environment.url + '/auth/category/' + id,category);
   }
 
   delete(id:number){
+    this.toastr.warning('Delete successfully')
     return this.http.delete(`${environment.url}/auth/category/${id}`);
   }
 

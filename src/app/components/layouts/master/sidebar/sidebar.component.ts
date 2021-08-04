@@ -27,7 +27,7 @@ export class SidebarComponent implements OnInit {
 
     this.allService.dataList.subscribe(data =>{
       this.wallets = data;
-      console.log(this.wallets[0]);
+      // console.log(this.wallets[0]);
     });
     this.allService.getDataList().subscribe(res => {
       this.allService.updateData(res.data);

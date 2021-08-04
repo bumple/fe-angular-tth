@@ -41,7 +41,6 @@ export class WalletDetailComponent implements OnInit {
         this.allService.getDataList().subscribe(res =>{
           this.allService.updateData(res.data);
         })
-        this.toastr.success('Delete successfully')
         this.router.navigate(['wallet/info'])
       })
     }

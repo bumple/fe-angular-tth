@@ -92,8 +92,7 @@ export class WalletInfoComponent implements OnInit {
               protected transactionService: TransactionService,
               protected categoryService: CategoryService,
               protected router: Router,
-              protected allService: AllserviceService,
-              protected toastr: ToastrService) {
+              protected allService: AllserviceService) {
   }
 
   today = this.getDate();
@@ -126,7 +125,8 @@ export class WalletInfoComponent implements OnInit {
       category_id: [''],
       money: ['', [Validators.required]],
       note: ['', [Validators.required]],
-      date: [this.today, [Validators.required]]
+      date: [this.today, [Validators.required]],
+      user_id: [value.id]
     })
   }
 
@@ -155,7 +155,6 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
-      this.toastr.success('Create wallet success')
       this.getAllWallet();
     });
   }
@@ -168,19 +167,10 @@ export class WalletInfoComponent implements OnInit {
   }
 
 
-  submit() {
-    let data = this.formAddMoney?.value;
-    this.walletService.plusMoney(data.id, data).subscribe(res => {
-      this.toastr.success('Add money to wallet success')
-      this.getAllWallet();
-    })
-  }
-
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
       this.getAllWallet();
-      this.toastr.success('Add transaction success')
     })
   }
 

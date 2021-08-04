@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.toastr.success('Đăng ký thành công')
+
     let data = this.formRegister?.value;
     this.userService.register(data).subscribe((res) => {
       console.log(res)
