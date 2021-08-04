@@ -23,8 +23,6 @@
   /*hide the nasty default radio buttons. like, completely!*/
   position:absolute;top:0;left:0;opacity:0;
 }
-
-
 #image-dropdown label {
   /*style the labels to look like dropdown options, kinda*/
   display:none; margin:2px; height:46px; opacity:0.2;
@@ -41,6 +39,7 @@
   /*tricky! labels immediately following a checked radio button (with our markup they are semantically related) should be fully opaque regardless of hover, and they should always be visible (i.e. even in the collapsed menu*/
   opacity:1 !important; display:block;
 }
+
 .info-box.shadow.grow{
   transition: all .3s ease-in-out;
 }

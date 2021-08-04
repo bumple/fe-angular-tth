@@ -33,6 +33,10 @@ export class CategoryService {
   delete(id:number){
     return this.http.delete(`${environment.url}/auth/category/${id}`);
   }
+
+  cateStatisticToday(id:number){
+    return this.http.get(`${environment.url}/auth/statistics/${id}`)
+  }
 }
 
 
