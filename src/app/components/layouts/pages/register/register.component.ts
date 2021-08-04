@@ -15,55 +15,55 @@ export class RegisterComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private route: Router,
-              private toastr: ToastrService,) {
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
     this.formRegister = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]],
+      name: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(32)]],
-      password_confirmation: [''],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password_confirmation: ['', [Validators.required]],
     })
   }
 
   submit() {
-
     let data = this.formRegister?.value;
-    this.userService.register(data).subscribe((res) => {
-      console.log(res)
-      this.route.navigate(['login'])
-    })
-  }
-
-  getErrorMessageMail() {
-    if (this.email?.hasError('required')) {
-      return 'Không được bỏ trống';
+    if (data.password_confirmation == data.password) {
+      this.userService.register(data).subscribe((res) => {
+        this.toastr.success('Register successfully')
+        // console.log(res)
+        this.route.navigate(['login'])
+      })
+    } else {
+      this.toastr.error('Password confirm is incorrect');
     }
-    return this.email?.hasError('email') ? 'Không đúng định dạng mail' : '';
   }
 
-  // @ts-ignore
-  // @ts-ignore
+  getErrorMessageEmail() {
+    if (this.email?.hasError('required')) {
+      return 'Email is required';
+    }
+    return this.email?.hasError('email') ? 'Wrong type of email' : '';
+  }
+
   getErrorMessageName() {
     if (this.name?.hasError('required')) {
-      return 'Không được bỏ trống';
-    } else if (this.name?.hasError('minLength')) {
-      return 'Tối thiểu 6 ký tự';
-    } else {
-      return 'Tối đa 32 ký tự';
+      return 'Username required';
     }
+    return 'Username is too short';
   }
 
 
   getErrorMessagePassword() {
     if (this.password?.hasError('required')) {
-      return 'Không được bỏ trống';
-    } else if (this.password?.hasError('minLength')) {
-      return 'Tối thiểu 6 ký tự';
-    } else {
-      return 'Tối đa 32 ký tự';
+      return 'Password is required';
     }
+    return 'Password is weak';
+  }
+
+  getErrorMessagePasswordConfirm() {
+    return this.password?.hasError('required') ? 'Password confirm is required' : '';
   }
 
 
@@ -77,5 +77,9 @@ export class RegisterComponent implements OnInit {
 
   get password() {
     return this.formRegister?.get('password')
+  }
+
+  get password_confirmation() {
+    return this.formRegister?.get('password_confirmation')
   }
 }

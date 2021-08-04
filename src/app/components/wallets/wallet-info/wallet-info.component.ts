@@ -92,7 +92,8 @@ export class WalletInfoComponent implements OnInit {
               protected transactionService: TransactionService,
               protected categoryService: CategoryService,
               protected router: Router,
-              protected allService: AllserviceService) {
+              protected allService: AllserviceService,
+              protected toastr: ToastrService) {
   }
 
   today = this.getDate();
@@ -155,6 +156,7 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
+      this.toastr.success('Create wallet successfully')
       this.getAllWallet();
     });
   }
@@ -170,6 +172,7 @@ export class WalletInfoComponent implements OnInit {
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
+      this.toastr.success('Create transaction successfully')
       this.getAllWallet();
     })
   }

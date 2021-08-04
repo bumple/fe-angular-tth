@@ -12,7 +12,6 @@ export class UserService {
               protected toastr: ToastrService) { }
 
   register(data: any){
-    this.toastr.success('Register successfully')
     return this.http.post(environment.url + '/auth/register',data);
   }
 }

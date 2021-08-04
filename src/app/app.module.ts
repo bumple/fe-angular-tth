@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LayoutsComponent} from './components/layouts/master/layouts.component';
@@ -20,6 +19,7 @@ import {WalletDetailComponent} from './components/wallets/wallet-detail/wallet-d
 import {MainContentComponent} from './components/layouts/master/main-content/main-content.component';
 import {ToastrModule} from "ngx-toastr";
 import {ChartsModule} from "ng2-charts";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import {ChartsModule} from "ng2-charts";
     MainContentComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,

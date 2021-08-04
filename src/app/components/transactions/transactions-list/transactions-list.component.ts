@@ -3,6 +3,7 @@ import {TransactionService} from "../../../services/transactions/transaction.ser
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import * as moment from 'moment';
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-transactions-list',
@@ -18,7 +19,8 @@ export class TransactionsListComponent implements OnInit {
 
   constructor(protected TranService: TransactionService,
               protected activated: ActivatedRoute,
-              protected fb: FormBuilder) {
+              protected fb: FormBuilder,
+              protected toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -50,6 +52,7 @@ export class TransactionsListComponent implements OnInit {
   editTran() {
     let data = this.formUpdateTran?.value;
     this.TranService.update(this._id, data).subscribe(() => {
+      this.toastr.success('Update transaction successfully')
       this.getAllTranByCategoryId();
     })
   }
@@ -57,6 +60,7 @@ export class TransactionsListComponent implements OnInit {
   delete(id: number) {
     if (confirm('Are you sure ?!')) {
       this.TranService.delete(id).subscribe(() => {
+        this.toastr.warning('Delete transaction successfully')
         this.getAllTranByCategoryId();
       })
     }
