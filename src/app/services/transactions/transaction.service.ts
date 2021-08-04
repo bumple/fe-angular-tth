@@ -12,8 +12,7 @@ export class TransactionService {
 
   transaction: ITransaction[] = [];
 
-  constructor(protected http: HttpClient,
-              protected toastr: ToastrService) {
+  constructor(protected http: HttpClient) {
   }
 
   getTransactionByCategoryId(id: any): Observable<any> {
@@ -25,17 +24,14 @@ export class TransactionService {
   }
 
   update(id: any, transaction: any): Observable<any> {
-    this.toastr.success('Update transaction successfully')
     return this.http.put(environment.url + '/auth/transaction/' + id, transaction)
   }
 
   store(transaction: ITransaction): Observable<any> {
-    this.toastr.success('Create transaction successfully')
     return this.http.post(environment.url + '/auth/transaction', transaction);
   }
 
   delete(id:any) {
-    this.toastr.warning('Delete transaction successfully')
     return this.http.delete(`${environment.url}/auth/transaction/${id}`)
   }
 

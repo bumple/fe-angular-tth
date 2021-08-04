@@ -30,12 +30,10 @@ export class WalletService {
   }
 
   delete(id: number): Observable<any> {
-    this.toastr.warning('Delete wallet successfully')
     return this.http.delete(environment.url + '/auth/wallet/' + id)
   }
 
   createWallet(wallet: IWallet): Observable<any> {
-    this.toastr.success('Create wallet successfully')
     return this.http.post(environment.url + '/auth/wallet', wallet)
   }
 
