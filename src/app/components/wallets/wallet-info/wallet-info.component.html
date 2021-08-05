@@ -92,7 +92,7 @@
             Close
           </button>
           <button type="submit" onclick="$('#close_modal_create').click();"
-                  [disabled]="formAddWallet.invalid" class="btn btn-outline-success">Save Wallet
+                  [disabled]="formAddWallet.invalid" class="btn btn-outline-success">Save
           </button>
         </div>
       </form>
@@ -139,7 +139,7 @@
         <div class="modal-footer justify-content-between">
           <button type="button" id="close_modal" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
           <button type="submit" onclick="$('#close_modal').click();" [disabled]="formAddMoney.invalid"
-                  class="btn btn-outline-success">Save changes
+                  class="btn btn-outline-success">Save
           </button>
         </div>
       </form>
@@ -163,7 +163,7 @@
               <!-- select -->
               <div class="form-group">
                 <label>Select your Wallet </label>
-                <select class="form-control form-control-lg" formControlName="wallet_id">
+                <select class="form-control form-control-lg" formControlName="wallet_id" (change)="onChange($event)">
                   <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
                 </select>
               </div>
@@ -203,7 +203,7 @@
             Close
           </button>
           <button type="submit" onclick="$('#close_modal_transaction').click();"
-                  [disabled]="formAddTransaction.invalid" class="btn btn-outline-success">Save changes
+                  [disabled]="formAddTransaction.invalid" class="btn btn-outline-success">Confirm
           </button>
         </div>
       </form>

@@ -83,8 +83,6 @@ export class WalletCreateComponent implements OnInit {
       icon: [''],
       user_id: 3
     })
-
-
   }
 
   select(index: any) {

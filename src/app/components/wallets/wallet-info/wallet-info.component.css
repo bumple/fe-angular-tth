@@ -1,7 +1,3 @@
-
-<<<<<<< HEAD
-=======
-
 #image-dropdown {
   /*style the "box" in its minimzed state*/
   border:none; width:70px; height:50px; overflow:hidden;
@@ -28,7 +24,6 @@
   position:absolute;top:0;left:0;opacity:0;
 }
 
-
 #image-dropdown label {
   /*style the labels to look like dropdown options, kinda*/
   display:none; margin:2px; height:46px; opacity:0.2;
@@ -52,4 +47,3 @@
   background-color: deepskyblue;
   transform: scale(1.1);
 }
->>>>>>> 58ed24f5e5833bdbbdcbdd0d7b1caae9eb58dd66

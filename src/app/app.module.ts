@@ -20,7 +20,7 @@ import {WalletDetailComponent} from './components/wallets/wallet-detail/wallet-d
 import {MainContentComponent} from './components/layouts/master/main-content/main-content.component';
 import {CategoryEditComponent} from './components/categories/category-edit/category-edit.component';
 import {ToastrModule} from "ngx-toastr";
-
+import {NoopAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import {ToastrModule} from "ngx-toastr";
     JwtModule,
     FormsModule,
     ToastrModule.forRoot(),
+    NoopAnimationsModule
   ],
   providers: [
     {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},

@@ -8,6 +8,8 @@ import {ICategory} from "../../../interface/icategory";
 import {Router} from "@angular/router";
 
 import {stringify} from "@angular/compiler/src/util";
+import {AllserviceService} from "../../../services/allservice.service";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-wallet-info',
@@ -17,7 +19,7 @@ import {stringify} from "@angular/compiler/src/util";
 export class WalletInfoComponent implements OnInit {
 
   wallets: IWallet[] = [];
-  categories: ICategory[] = [];
+  categories: any;
 
   formAddWallet: FormGroup | undefined;
   formAddMoney: FormGroup | undefined;
@@ -27,7 +29,6 @@ export class WalletInfoComponent implements OnInit {
 
   backgroundImg = 'assets/images/icons/1.png';
   value = '1';
-
 
   iconList = [{
     value: '2',
@@ -88,49 +89,46 @@ export class WalletInfoComponent implements OnInit {
               protected fb: FormBuilder,
               protected transactionService: TransactionService,
               protected categoryService: CategoryService,
-              protected router: Router) {
+              protected router: Router,
+              protected allService: AllserviceService,
+              protected toastr: ToastrService) {
   }
 
   ngOnInit(): void {
     this.getAllWallet();
-    this.getAllCategories();
 
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.username = value.name;
 
     this.formAddMoney = this.fb.group({
-      'id': [''],
-      'amount': ['', [Validators.required], [Validators.min(0)]],
-      'description': ['', [Validators.required]],
+      id: [''],
+      amount: ['', [Validators.required], [Validators.min(0)]],
+      description: ['', [Validators.required]],
     })
 
     this.formAddWallet = this.fb.group({
-      name: [''],
-      amount: [''],
-      description: [''],
+      name: ['', [Validators.required]],
+      amount: ['', [Validators.required]],
+      description: ['', [Validators.required]],
       icon: [''],
-      user_id: 1
+      user_id: [value.id]
     })
 
     this.formAddTransaction = this.fb.group({
-      'wallet_id': [''],
-      'category_id': [''],
-      'money': ['', [Validators.required]],
-      'note': ['', [Validators.required]],
+      wallet_id: [''],
+      category_id: [''],
+      money: ['', [Validators.required]],
+      note: ['', [Validators.required]],
     })
   }
 
   getAllWallet() {
     this.walletService.getAllWallets().subscribe(res => {
       this.wallets = res.data;
+      this.allService.updateData(res.data);
     })
   }
 
-  getAllCategories() {
-    this.categoryService.getAllCategories().subscribe(res => {
-      this.categories = res.data;
-    })
-  }
 
   select(index: any) {
     let icon = this.iconList[index];
@@ -143,13 +141,15 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
+      this.toastr.success('Create wallet success')
       this.getAllWallet();
-    })
+    });
   }
 
   submit() {
     let data = this.formAddMoney?.value;
     this.walletService.plusMoney(data.id, data).subscribe(res => {
+      this.toastr.success('Add money to wallet success')
       this.getAllWallet();
     })
   }
@@ -157,6 +157,7 @@ export class WalletInfoComponent implements OnInit {
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
+      this.toastr.success('Add transaction success')
       this.getAllWallet();
     })
   }
@@ -175,5 +176,12 @@ export class WalletInfoComponent implements OnInit {
 
   get note() {
     return this.formAddTransaction?.get('note');
+  }
+
+  onChange(event: any) {
+    console.log(event.target.value)
+    this.walletService.getCategoryByWalletId(event.target.value).subscribe(res => {
+      this.categories = res;
+    })
   }
 }

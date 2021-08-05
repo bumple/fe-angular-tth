@@ -26,7 +26,8 @@ export class WalletService {
     return this.http.put(environment.url + '/auth/wallet/info/' + id, wallet)
   }
 
-  update(id: number, wallet: IWallet): Observable<any> {
+  update(id: any, wallet: IWallet): Observable<any> {
+    console.log(wallet, 'sss');
     return this.http.put(environment.url + '/auth/wallet/' + id, wallet)
   }
 
@@ -37,5 +38,10 @@ export class WalletService {
   createWallet(wallet: IWallet): Observable<any> {
     return this.http.post(environment.url + '/auth/wallet', wallet)
   }
+
+  getCategoryByWalletId(id: any){
+    return this.http.get(environment.url + '/auth/category/info/' + id)
+  }
+
 
 }
