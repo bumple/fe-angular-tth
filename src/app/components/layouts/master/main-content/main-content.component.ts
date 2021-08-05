@@ -8,7 +8,8 @@ import {AllserviceService} from "../../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
-
+import { saveAs } from 'file-saver';
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-main-content',
@@ -24,6 +25,7 @@ export class MainContentComponent implements OnInit {
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
+  public check: boolean = true;
 
   public barChartData: ChartDataSets[] = [
     {data: [0, 0, 0, 0], label: 'Income'},
@@ -67,12 +69,15 @@ export class MainContentComponent implements OnInit {
 
   pickDate(){
     let data = this.formChooseDate?.value;
-    this.transactionService.getReportFromToDate(data).subscribe((res:any) => {
-      this.wallet_name = res.wallet_name;
-      this.moneyFlow = res.money;
-      console.log(this.wallet_name[0],'tranfilter');
-      console.log(this.moneyFlow,'moneyflow');
-    })
+    if (data.from && data.to ){
+      this.check = false;
+      this.transactionService.getReportFromToDate(data).subscribe((res:any) => {
+        this.wallet_name = res.wallet_name;
+        this.moneyFlow = res.money;
+        console.log(this.wallet_name[0],'tranfilter');
+        console.log(this.moneyFlow,'moneyflow');
+      })
+    }
   }
 
   getAllWallets() {
@@ -111,6 +116,14 @@ export class MainContentComponent implements OnInit {
       mm = '0' + mm
     }
     return yyyy + '-' + mm + '-' + dd;
+  }
+
+  export(){
+    let data = this.formChooseDate?.value;
+
+    this.transactionService.exportToExcel(data).subscribe((res:any)=>{
+      saveAs(res, `Report-Transaction-${data.from}-${data.to}`);
+    })
   }
 }
 

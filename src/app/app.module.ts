@@ -21,6 +21,8 @@ import {ToastrModule} from "ngx-toastr";
 import {ChartsModule} from "ng2-charts";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
+import * as FileSaver from "file-saver";
+
 @NgModule({
   declarations: [
     AppComponent,
