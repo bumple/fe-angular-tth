@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class LoginComponent implements OnInit {
 
+  hide: boolean | false | undefined;
   formLogin: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
@@ -52,5 +53,9 @@ export class LoginComponent implements OnInit {
 
   getErrorMessagePassword(){
     return this.email?.hasError('required') ? 'Password is required' : '';
+  }
+
+  showPassword(){
+    this.hide = !this.hide;
   }
 }

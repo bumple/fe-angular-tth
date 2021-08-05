@@ -28,9 +28,9 @@
             <div class="col-md-12 mb-3">
               <div class="input-group-append">
                 <input formControlName="password" type="password" class="form-control" placeholder="Password"
-                       [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
+                       [type]="hide ? 'text' : 'password'" [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
                 <div class="input-group-text">
-                  <span class="fas fa-eye"></span>
+                  <a (click)="showPassword()"><i class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}"></i></a>
                 </div>
               </div>
               <span *ngIf="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''"

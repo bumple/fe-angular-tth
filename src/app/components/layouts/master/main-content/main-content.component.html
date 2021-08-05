@@ -60,6 +60,7 @@
                         <tr>
                           <td>No</td>
                           <td>Wallet</td>
+                          <td>Description</td>
                           <td>Income</td>
                           <td>Outcome</td>
                         </tr>
@@ -68,8 +69,8 @@
                         <tr *ngFor="let filter of wallet_name;index as i">
                           <td>{{i + 1}}</td>
                           <td>{{filter}}</td>
-                          <td>{{moneyFlow[i].Income || 0}}</td>
-                          <td>{{moneyFlow[i].Outcome || 0}}</td>
+                          <td>{{moneyFlow[i].Income || 0 | number:'1.0'}} VND</td>
+                          <td>{{moneyFlow[i].Outcome || 0 | number:'1.0'}} VND</td>
                         </tr>
                         </tbody>
                       </table>

@@ -10,6 +10,9 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
+  hide: boolean | false | undefined;
+  hideConfirm: boolean | false | undefined;
   formRegister: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
@@ -81,5 +84,13 @@ export class RegisterComponent implements OnInit {
 
   get password_confirmation() {
     return this.formRegister?.get('password_confirmation')
+  }
+
+  showPassword() {
+    this.hide = !this.hide;
+  }
+
+  showConfirmPwd(){
+    this.hideConfirm = !this.hideConfirm;
   }
 }
