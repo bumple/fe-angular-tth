@@ -1,41 +1,48 @@
-<div class="hold-transition login-page" >
-  <div class="login-box" style="border-radius: 25px" >
+<div class="hold-transition login-page">
+  <div class="login-box" style="border-radius: 25px">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="../../index2.html" class="h1">TimeTo<b>High</b></a>
+        <a class="h1">TimeTo<b>High</b></a>
       </div>
+
       <div class="card-body">
-
-
         <div class="row">
           <div class="col-1"></div>
-          <h2>
-            {{errLogin}}
-          </h2>
-          <form *ngIf="formLogin" [formGroup]="formLogin" (ngSubmit)="submit()" class="col-5 row">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <div class="input-group mb-3">
-              <input formControlName="email" type="email" class="form-control col-12" placeholder="Email">
+          <form *ngIf="formLogin" [formGroup]="formLogin" (submit)="submit()" class="col-5 row">
+            <h4 class="mt-2" style="margin-left: 7rem">Sign in to start</h4>
+            <div class="col-md-12 mb-2">
               <div class="input-group-append">
+                <input formControlName="email" type="email" class="form-control" placeholder="Email"
+                       [ngClass]="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''">
                 <div class="input-group-text">
                   <span class="fas fa-envelope"></span>
                 </div>
               </div>
+              <span *ngIf="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''"
+                    class="text-danger">
+                      {{getErrorMessageEmail()}}
+                </span>
             </div>
-            <div class="input-group mb-3">
-              <input formControlName="password" type="password" class="form-control col-12" placeholder="Password">
+
+            <div class="col-md-12 mb-3">
               <div class="input-group-append">
+                <input formControlName="password" type="password" class="form-control" placeholder="Password"
+                       [type]="hide ? 'text' : 'password'" [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                  <a (click)="showPassword()"><i class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}"></i></a>
                 </div>
               </div>
+              <span *ngIf="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''"
+                    class="text-danger">
+                {{getErrorMessagePassword()}}
+              </span>
             </div>
             <div class="row input-group">
-              <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="formLogin.invalid">Sign In</button>
               </div>
-              <div class="col-8">
+              <div class="col-7">
                 <div class="icheck-primary">
                   <input type="checkbox" id="remember">
                   <label for="remember">
@@ -61,12 +68,12 @@
             </div>
             <!-- /.social-auth-links -->
 
-            <p class="mb-1 ml-5">
-              <a href="forgot-password.html">I forgot my password</a>
+            <p class="mb-1 " style="text-align: center">
+              <a>I forgot my password</a>
             </p>
-            <p class="mb-0 ml-3">
+            <p class="mb-0" style="text-align: center">
               Don't have an account?
-              <a routerLink="/register" class="text-center">Register here</a>
+              <a routerLink="/register">Register here</a>
             </p>
           </div>
         </div>
