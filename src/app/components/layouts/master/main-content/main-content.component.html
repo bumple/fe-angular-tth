@@ -60,7 +60,6 @@
                         <tr>
                           <td>No</td>
                           <td>Wallet</td>
-                          <td>Description</td>
                           <td>Income</td>
                           <td>Outcome</td>
                         </tr>
@@ -100,6 +99,7 @@
                           <input class="form-control" type="date" formControlName="to" [max]="today"
                                  (change)="pickDate()">
                         </form>
+                        <button class="btn btn-info mt-5" [disabled]="check"  (click)="export()">Export to Excel</button>
                       </div>
                     </div>
                   </div>

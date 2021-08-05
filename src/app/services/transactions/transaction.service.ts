@@ -42,4 +42,8 @@ export class TransactionService {
   getReportFromToDate(data:any){
     return this.http.post(`${environment.url}/auth/report`,data);
   }
+
+  exportToExcel(data:any){
+    return this.http.post(`${environment.url}/auth/export`,data,{ responseType: 'blob' });
+  }
 }
