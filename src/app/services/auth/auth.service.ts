@@ -18,7 +18,7 @@ export class AuthService {
               ) { }
 
   checkAccount(data: any): Observable<any> {
-    // @ts-ignore
+    this.toastr.success('Welcome to TimeToHigh')
     return this.http.post(environment.url + '/login/',data)
   }
 
@@ -30,7 +30,7 @@ export class AuthService {
   }
 
   logout(){
-    this.toastr.success('Đăng xuất thành công')
+    this.toastr.success('Hope to see you again soon')
     this.router.navigate(['login'])
     // @ts-ignore
     return this.http.post(environment.url + '/auth/logout').subscribe(()=>{

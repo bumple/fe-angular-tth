@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {WalletService} from "../../../../services/wallets/wallet.service";
 import {TransactionService} from "../../../../services/transactions/transaction.service";
 import {CategoryService} from "../../../../services/categories/category.service";
@@ -8,6 +8,7 @@ import {AllserviceService} from "../../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
 import {ChartDataSets, ChartOptions, ChartType} from 'chart.js';
 import {Label} from 'ng2-charts';
+
 
 @Component({
   selector: 'app-main-content',
@@ -19,20 +20,26 @@ export class MainContentComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  public barChartLabels: Label[] = ['Week 1','Week 2','Week 3','Week 4'];
   public barChartType: ChartType = 'bar';
   public barChartLegend = true;
   public barChartPlugins = [];
 
   public barChartData: ChartDataSets[] = [
-    {data: [65, 59, 80, 81, 56, 55, 40, 40, 40, 40, 40,40], label: 'Series A'},
-    {data: [28, 48, 40, 19, 86, 27, 90, 90, 90, 90, 90,50], label: 'Series B'}
+    {data: [0, 0, 0, 0], label: 'Income'},
+    {data: [0, 0, 0, 0], label: 'Outcome'}
   ];
 
+  moneyFlow: any;
+  wallet_name:any;
   tranArray: any;
   cateName: any;
   wallets: any;
   today = this.getDate();
+  sum: number | undefined;
+  week: any;
+  formChooseDate: FormGroup | undefined;
+  user_id:any;
 
   constructor(protected walletService: WalletService,
               protected fb: FormBuilder,
@@ -45,6 +52,27 @@ export class MainContentComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllWallets();
+    this.getReportData();
+
+    let value = JSON.parse(<string>localStorage.getItem('user'))
+    this.user_id = value.id;
+
+    this.formChooseDate = this.fb.group({
+      from: [''],
+      to: [''],
+      user_id: [this.user_id]
+    })
+
+  }
+
+  pickDate(){
+    let data = this.formChooseDate?.value;
+    this.transactionService.getReportFromToDate(data).subscribe((res:any) => {
+      this.wallet_name = res.wallet_name;
+      this.moneyFlow = res.money;
+      console.log(this.wallet_name[0],'tranfilter');
+      console.log(this.moneyFlow,'moneyflow');
+    })
   }
 
   getAllWallets() {
@@ -53,43 +81,21 @@ export class MainContentComponent implements OnInit {
     })
   }
 
+  getReportData(){
+    this.transactionService.getReportData().subscribe((res:any) =>{
+      // console.log(res.week1.Income);
+      this.barChartData = [
+        {data: [res.week1.Income||0, res.week2.Income||0, res.week3.Income||0, res.week4.Income||0], label: 'Income'},
+        {data: [res.week1.Outcome*-1||0, res.week2.Outcome*-1||0, res.week3.Outcome*-1||0, res.week4.Outcome*-1||0], label: 'Outcome'}
+      ];
+    })
+  }
+
   onChange(event: any) {
-    this.categoryService.cateStatisticToday(event.target.value).subscribe(res => {
-      this.tranArray = res;
-      this.tranArray = this.tranArray[0];
-      this.cateName = res;
-      this.cateName = this.cateName[1];
-      // Chuyển đổi object this.cateName -> mảng cateIndex
-      let cateIndex = Object.keys(this.cateName).map((item) =>{
-        return this.cateName[item];
-      });
-
-      var result = Object.keys(this.cateName).map((key) => [Number(key), this.cateName[key]]);
-      console.log(result,'result');
-
-
-      for (let i = 0; i < this.tranArray.length; i++) {
-        for (let j = 0; j < this.tranArray[i].length; j++) {
-          switch (this.tranArray[i][j].category_id){
-            case result :
-          }
-          // for (let k = 0; k < cateIndex.length; k++) {
-          // if(this.tranArray[i][j].category_id == this.cateName.index){
-          //   this.tranArray[i][j].category_id = cateIndex[k];
-          // }
-          // }
-          // console.log(cateIndex[this.tranArray[i][j].category_id][0],'12345')
-          // let a = this.tranArray[i][j].category_id;
-          // this.tranArray[i][j].category_id == this.cateName.`${a}` ?
-          //   this.tranArray[i][j].category_id = this.cateName.a
-          // }
-        }
-      }
-
-      console.log(this.tranArray,'test')
-      console.log(cateIndex,'test123')
-      // @ts-ignore
-      console.log(this.cateName,'catename')
+    // console.log(event.target.value);
+    this.categoryService.cateStatisticToday(event.target.value).subscribe((res:any) => {
+      this.tranArray = res.data;
+      this.sum = res.total;
     })
   }
 
