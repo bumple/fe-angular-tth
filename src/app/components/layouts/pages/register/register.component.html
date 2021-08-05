@@ -41,10 +41,10 @@
           <div class="row">
             <div class="col-md-12 mb-3">
               <div class="input-group-append">
-                <input formControlName="password" type="password" class="form-control" placeholder="Password"
-                       [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
+                <input formControlName="password" type="password"  class="form-control" placeholder="Password"
+                       [type]="hide ? 'text' : 'password'"  [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                 <a (click)="showPassword()"><i class="{{hide ? 'fas fa-eye' : 'fas fa-eye-slash'}}"></i></a>
                 </div>
               </div>
               <span *ngIf="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''" class="text-danger">
@@ -57,9 +57,9 @@
             <div class="col-md-12 mb-3">
               <div class="input-group-append">
                 <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Retype password"
-                       [ngClass]="password_confirmation && password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched) ? 'is-invalid' : ''">
+                       [type]="hideConfirm ? 'text' : 'password'"  [ngClass]="password_confirmation && password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched) ? 'is-invalid' : ''">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                  <a (click)="showConfirmPwd()"><i class="{{hideConfirm ? 'fas fa-eye' : 'fas fa-eye-slash'}}"></i></a>
                 </div>
               </div>
               <span *ngIf="password_confirmation && password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched) ? 'is-invalid' : ''" class="text-danger">
@@ -79,3 +79,4 @@
     </div><!-- /.card -->
   </div>
 </div>
+
