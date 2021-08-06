@@ -1,115 +1,187 @@
-<!-- Main content -->
-<section class="content">
-  <div class="container-fluid">
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-info">
-          <div class="inner">
-            <h3>Wallet</h3>
-            <p>Create Wallet</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-wallet"></i>
-          </div>
-          <a data-toggle="modal" data-target="#modal-default-create" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-teal">
-          <div class="inner">
-            <h3>Category</h3>
-
-            <p>Create Category</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-archive"></i>
-          </div>
-          <a class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-blue">
-          <div class="inner">
-            <h3>Detail</h3>
-            <p>See all Wallets</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-search-dollar"></i>
-          </div>
-          <a class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3>Log out</h3>
-            <p>Good Bye !!!</p>
-          </div>
-          <div class="icon">
-            <i class="fas fa-sign-out-alt"></i>
-          </div>
-          <a href="#" class="small-box-footer">Hope to see you again soon <i class="fas fa-arrow-circle-right"></i></a>
-        </div>
-      </div>
-      <!-- ./col -->
+<div class="container">
+  <div class="card card-teal card-tabs">
+    <div class="card-header p-0 pt-1">
+      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home"
+             role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Month Statistic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile"
+             role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Date Statistic</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="custom-tabs-one-messages-tab" data-toggle="pill" href="#custom-tabs-one-messages"
+             role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">Today</a>
+        </li>
+        <!--          <li class="nav-item">-->
+        <!--            <a class="nav-link" id="custom-tabs-one-settings-tab" data-toggle="pill" href="#custom-tabs-one-settings"-->
+        <!--               role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">Settings</a>-->
+        <!--          </li>-->
+      </ul>
     </div>
-  </div>
-</section>
-
-<div class="row">
-  <section class="col-lg-7 connectedSortable">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">
-        </h3>
-      </div>
-    </div>
-  </section>
-  <section class="col-lg-5 connectedSortable">
-    <div class="card bg-gradient-success">
-      <div class="card-header border-0">
-        <h3 class="card-title">
-          <i class="far fa-calendar-alt"></i>
-          Calendar
-        </h3>
-        <!-- tools card -->
-        <div class="card-tools">
-          <!-- button with a dropdown -->
-          <div class="btn-group">
-            <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown" data-offset="-52">
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="dropdown-menu" role="menu">
-              <a href="#" class="dropdown-item">Add new event</a>
-              <a href="#" class="dropdown-item">Clear events</a>
-              <div class="dropdown-divider"></div>
-              <a href="#" class="dropdown-item">View calendar</a>
+    <div class="card-body">
+      <div class="tab-content" id="custom-tabs-one-tabContent">
+        <!--      tab month statistic-->
+        <div class="tab-pane fade show active" id="custom-tabs-one-home" role="tabpanel"
+             aria-labelledby="custom-tabs-one-home-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8" style="margin:0 auto">
+                <section>
+                  <div class="card">
+                    <div style="display: block;">
+                      <canvas baseChart
+                              [datasets]="barChartData"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [plugins]="barChartPlugins"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                      </canvas>
+                    </div>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
-          <button type="button" class="btn btn-success btn-sm" data-card-widget="collapse">
-            <i class="fas fa-minus"></i>
-          </button>
-          <button type="button" class="btn btn-success btn-sm" data-card-widget="remove">
-            <i class="fas fa-times"></i>
-          </button>
         </div>
-        <!-- /. tools -->
+        <!--        tab date statistic-->
+        <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel"
+             aria-labelledby="custom-tabs-one-profile-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="card">
+                  <section>
+                    <div class="card-body">
+                      <table class="table shadow-lg text-center">
+                        <thead>
+                        <tr>
+                          <td>No</td>
+                          <td>Wallet</td>
+                          <td>Income</td>
+                          <td>Outcome</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let filter of wallet_name;index as i">
+                          <td>{{i + 1}}</td>
+                          <td>{{filter}}</td>
+                          <td>{{moneyFlow[i].Income || 0}}</td>
+                          <td>{{moneyFlow[i].Outcome || 0}}</td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <section>
+                  <div class="container">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4>Options</h4>
+                      </div>
+                      <div class="card-body">
+                        <!--                        <label>Select your wallet</label>-->
+                        <!--                        <select class="form-control" (change)="onChange($event)">-->
+                        <!--                          <option>&#45;&#45;None&#45;&#45;</option>-->
+                        <!--                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>-->
+                        <!--                        </select>-->
+                        <form *ngIf="formChooseDate" [formGroup]="formChooseDate">
+                          <label>From</label>
+                          <input class="form-control" type="date" formControlName="from" [max]="today"
+                                 (change)="pickDate()">
+
+                          <label>To</label>
+                          <input class="form-control" type="date" formControlName="to" [max]="today"
+                                 (change)="pickDate()">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--tab today statistic-->
+        <div class="tab-pane fade" id="custom-tabs-one-messages" role="tabpanel"
+             aria-labelledby="custom-tabs-one-messages-tab">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-9">
+                <div class="card">
+                  <section>
+                    <div class="card-body">
+                      <table class="table shadow-lg text-center">
+                        <thead>
+                        <tr>
+                          <td>No</td>
+                          <td>Transaction Code</td>
+                          <td>Category</td>
+                          <td>Note</td>
+                          <td>Amount (
+                            <ins>VND</ins>
+                            )
+                          </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let tran of tranArray;index as i">
+                          <td>{{i + 1}}</td>
+                          <td>{{tran.id}}</td>
+                          <td>{{tran.category.name}}</td>
+                          <td>{{tran.note}}</td>
+                          <td>{{tran.money | number: '1.0'}}</td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>Total Remain:</td>
+                          <td>{{sum | number:'1.0'}} VND</td>
+                        </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <section>
+                  <div class="container">
+                    <div class="card">
+                      <div class="card-header text-center">
+                        <h4>Options</h4>
+                      </div>
+                      <div class="card-body">
+                        <label>Select your wallet</label>
+                        <!--Select wallet-->
+                        <select class="form-control" (change)="onChange($event)">
+                          <option>--None--</option>
+                          <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
+                        </select>
+                        <!--Choose Date-->
+                        <label>Date</label>
+                        <input class="form-control" type="date" [max]="today" [defaultValue]="today" [min]="today">
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--      <div class="tab-pane fade" id="custom-tabs-one-settings" role="tabpanel"-->
+        <!--           aria-labelledby="custom-tabs-one-settings-tab">-->
+        <!--      </div>-->
       </div>
-      <!-- /.card-header -->
-      <div class="card-body pt-0">
-        <!--The calendar -->
-        <div id="calendar" style="width: 100%"></div>
-      </div>
-      <!-- /.card-body -->
     </div>
     <!-- /.card -->
-  </section>
+  </div>
 </div>

@@ -2,66 +2,74 @@
   <div class="register-box">
     <div class="card card-outline card-primary">
       <div class="card-header text-center">
-        <a href="../../index2.html" class="h1">TimeTo<b>High</b></a>
+        <a class="h1">TimeTo<b>High</b></a>
       </div>
       <div class="card-body">
-        <p class="login-box-msg">Tạo tài khoản</p>
+        <h5 class="login-box-msg">Register Account</h5>
 
-        <form *ngIf="formRegister" [formGroup]="formRegister" (ngSubmit)="submit()">
-          <div class="input-group mb-3">
-            <!--            <p *ngIf="email && email.invalid ">{{getErrorMessageMail()}}</p>-->
-            <!--            <p *ngIf="name && name.invalid">{{getErrorMessageName()}}</p>-->
-            <!--            <p *ngIf="password && password.invalid ">{{getErrorMessagePassword()}}</p>-->
-            <input formControlName="name" type="text" class="form-control" placeholder="Tên"
-                   [ngClass]="name && name.invalid && (name.dirty || name.touched) ? 'is-invalid' : ''">
-            <div *ngIf="name && name.invalid && (name.dirty || name.touched)"
-                 class="text-danger">
-              <div class="input-group mb-3">
-                <div *ngIf="name.errors?.required">
-                  <!--                  Name is required.-->
-                </div>
-                <div *ngIf="name.errors?.minlength">
-                  <!--                  ten phai co tren 6 ki tu.-->
-                </div>
-                <div *ngIf="name.errors?.maxlength">
-                  <!--                  ten khong qua 32 ki tu.-->
-                </div>
-              </div>
-            </div>
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-user"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input formControlName="email" type="email" class="form-control" placeholder="Email"
-                   [ngClass]="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input formControlName="password" type="password" class="form-control" placeholder="Mật khẩu"
-                   [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
-          <div class="input-group mb-3">
-            <input type="password" class="form-control" formControlName="password_confirmation" placeholder="Retype password">
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="fas fa-lock"></span>
-              </div>
-            </div>
-          </div>
+        <form *ngIf="formRegister" [formGroup]="formRegister" (submit)="submit()">
           <div class="row">
-            <button type="submit" class="btn btn-primary btn-block">Đăng ký</button>
+            <div class="col-md-12 mb-3">
+              <div class="input-group-append">
+                <input formControlName="name" type="text" class="form-control" placeholder="Username"
+                       [ngClass]="name && name.invalid && (name.dirty || name.touched) ? 'is-invalid' : ''">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+              <span *ngIf="name && name.invalid && (name.dirty || name.touched) ? 'is-invalid' : ''" class="text-danger">
+                {{getErrorMessageName()}}
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="input-group-append">
+                <input formControlName="email" type="email" class="form-control" placeholder="Email"
+                       [ngClass]="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+              <span *ngIf="email && email.invalid && (email.dirty || email.touched) ? 'is-invalid' : ''" class="text-danger">
+                {{getErrorMessageEmail()}}
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="input-group-append">
+                <input formControlName="password" type="password" class="form-control" placeholder="Password"
+                       [ngClass]="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              <span *ngIf="password && password.invalid && (password.dirty || password.touched) ? 'is-invalid' : ''" class="text-danger">
+                {{getErrorMessagePassword()}}
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mb-3">
+              <div class="input-group-append">
+                <input formControlName="password_confirmation" type="password" class="form-control" placeholder="Retype password"
+                       [ngClass]="password_confirmation && password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched) ? 'is-invalid' : ''">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              <span *ngIf="password_confirmation && password_confirmation.invalid && (password_confirmation.dirty || password_confirmation.touched) ? 'is-invalid' : ''" class="text-danger">
+                {{getErrorMessagePasswordConfirm()}}
+              </span>
+            </div>
+          </div>
+
+          <div class="row">
+            <button type="submit" class="btn btn-primary btn-block" [disabled]="formRegister.invalid">Register</button>
             <!-- /.col -->
           </div>
         </form>

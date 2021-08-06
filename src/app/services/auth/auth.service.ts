@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {JwtHelperService} from "@auth0/angular-jwt";
-import { ToastrService } from 'ngx-toastr';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +15,25 @@ export class AuthService {
               private http: HttpClient,
               public jwtHelper: JwtHelperService,
               private toastr: ToastrService,
-              ) { }
+  ) {
+  }
 
   checkAccount(data: any): Observable<any> {
-    // @ts-ignore
-    return this.http.post(environment.url + '/login/',data)
+    return this.http.post(environment.url + '/login/', data)
   }
 
   isLogin() {
-    this.http.get(environment.url + '/auth/user-profile').subscribe((res:any)=>{
+    this.http.get(environment.url + '/auth/user-profile').subscribe((res: any) => {
       // console.log(res)
     });
     return localStorage.getItem('token');
   }
 
-  logout(){
-    this.toastr.success('Đăng xuất thành công')
+  logout() {
     this.router.navigate(['login'])
     // @ts-ignore
-    return this.http.post(environment.url + '/auth/logout').subscribe(()=>{
+    return this.http.post(environment.url + '/auth/logout').subscribe(() => {
+      this.toastr.success('Hope to see you again soon')
       localStorage.clear();
     });
   }

@@ -10,6 +10,7 @@ import {Router} from "@angular/router";
 import {stringify} from "@angular/compiler/src/util";
 import {AllserviceService} from "../../../services/allservice.service";
 import {ToastrService} from "ngx-toastr";
+import * as moment from "moment";
 
 @Component({
   selector: 'app-wallet-info',
@@ -26,6 +27,7 @@ export class WalletInfoComponent implements OnInit {
   formAddTransaction: FormGroup | undefined;
 
   username: string | undefined
+
 
   backgroundImg = 'assets/images/icons/1.png';
   value = '1';
@@ -94,6 +96,9 @@ export class WalletInfoComponent implements OnInit {
               protected toastr: ToastrService) {
   }
 
+  today = this.getDate();
+
+
   ngOnInit(): void {
     this.getAllWallet();
 
@@ -107,28 +112,38 @@ export class WalletInfoComponent implements OnInit {
     })
 
     this.formAddWallet = this.fb.group({
+      icon: [''],
       name: ['', [Validators.required]],
       amount: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      icon: [''],
+      date: [this.today],
       user_id: [value.id]
     })
+
 
     this.formAddTransaction = this.fb.group({
       wallet_id: [''],
       category_id: [''],
       money: ['', [Validators.required]],
       note: ['', [Validators.required]],
+      date: [this.today, [Validators.required]],
+      user_id: [value.id]
     })
   }
 
-  getAllWallet() {
-    this.walletService.getAllWallets().subscribe(res => {
-      this.wallets = res.data;
-      this.allService.updateData(res.data);
-    })
+  getDate() {
+    let today = new Date();
+    let dd: any = today.getDate();
+    let mm: any = today.getMonth() + 1; //January is 0 so need to add 1 to make it 1!
+    let yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd
+    }
+    if (mm < 10) {
+      mm = '0' + mm
+    }
+    return yyyy + '-' + mm + '-' + dd;
   }
-
 
   select(index: any) {
     let icon = this.iconList[index];
@@ -141,26 +156,27 @@ export class WalletInfoComponent implements OnInit {
     data.icon = this.backgroundImg;
     console.log(data);
     this.walletService.createWallet(data).subscribe(() => {
-      this.toastr.success('Create wallet success')
+      this.toastr.success('Create wallet successfully')
       this.getAllWallet();
     });
   }
 
-  submit() {
-    let data = this.formAddMoney?.value;
-    this.walletService.plusMoney(data.id, data).subscribe(res => {
-      this.toastr.success('Add money to wallet success')
-      this.getAllWallet();
+  getAllWallet() {
+    this.walletService.getAllWallets().subscribe(res => {
+      this.wallets = res.data;
+      this.allService.updateData(res.data);
     })
   }
+
 
   createTran() {
     let data = this.formAddTransaction?.value;
     this.transactionService.store(data).subscribe(() => {
-      this.toastr.success('Add transaction success')
+      this.toastr.success('Create transaction successfully')
       this.getAllWallet();
     })
   }
+
 
   getDetail(id: any) {
     this.router.navigate(['wallet/detail'], {queryParams: {id: id}});
@@ -176,6 +192,10 @@ export class WalletInfoComponent implements OnInit {
 
   get note() {
     return this.formAddTransaction?.get('note');
+  }
+
+  get date() {
+    return this.formAddTransaction?.get('date');
   }
 
   onChange(event: any) {

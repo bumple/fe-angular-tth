@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {IWallet} from "../../interface/iwallet";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class WalletService {
 
   wallet: IWallet[] = [];
 
-  constructor(protected http: HttpClient) {
+  constructor(protected http: HttpClient,
+              protected toastr: ToastrService) {
   }
 
   getAllWallets(): Observable<any> {
@@ -27,7 +29,7 @@ export class WalletService {
   }
 
   update(id: any, wallet: IWallet): Observable<any> {
-    console.log(wallet, 'sss');
+    this.toastr.success('Update wallet successfully')
     return this.http.put(environment.url + '/auth/wallet/' + id, wallet)
   }
 
@@ -39,7 +41,7 @@ export class WalletService {
     return this.http.post(environment.url + '/auth/wallet', wallet)
   }
 
-  getCategoryByWalletId(id: any){
+  getCategoryByWalletId(id: any) {
     return this.http.get(environment.url + '/auth/category/info/' + id)
   }
 

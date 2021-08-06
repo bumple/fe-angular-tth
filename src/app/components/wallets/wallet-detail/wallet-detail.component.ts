@@ -5,6 +5,7 @@ import {ToastrService} from "ngx-toastr";
 import {AllserviceService} from "../../../services/allservice.service";
 import {IWallet} from "../../../interface/iwallet";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import * as moment from 'moment'
 
 @Component({
   selector: 'app-wallet-detail',
@@ -14,7 +15,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class WalletDetailComponent implements OnInit {
 
   walletById: any
-
   wallets: IWallet[] = [];
   categories: any;
 
@@ -87,7 +87,6 @@ export class WalletDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWalletById();
-
     let value = JSON.parse(<string>localStorage.getItem('user'))
     this.formEditWallet = this.fb.group({
       name: ['', [Validators.required]],
@@ -102,13 +101,10 @@ export class WalletDetailComponent implements OnInit {
     let id = this.activatedRouter.snapshot.queryParamMap.get('id');
     this.walletService.findById(id).subscribe(res => {
       this.walletById = res.data;
-      console.log(this.walletById);
       this.backgroundImg = this.walletById.icon;
-      console.log(this.backgroundImg);
       for (let i=0; i<this.iconList.length;i++){
         if (this.iconList[i].img == this.backgroundImg) {
           this.value = this.iconList[i].value;
-          console.log(this.value);
         }
       }
     })
@@ -120,8 +116,8 @@ export class WalletDetailComponent implements OnInit {
       this.walletService.delete(walletId).subscribe(() => {
         this.allService.getDataList().subscribe(res => {
           this.allService.updateData(res.data);
+          this.toastr.warning('Delete wallet successfully')
         })
-        this.toastr.success('Delete successfully')
         this.router.navigate(['wallet/info'])
       })
     }
@@ -131,11 +127,21 @@ export class WalletDetailComponent implements OnInit {
     this.router.navigate(['wallet/info']);
   }
 
+  openEdit() {
+    let value = JSON.parse(<string>localStorage.getItem('user'))
+    this.formEditWallet = this.fb.group({
+      name: [this.walletById.name, [Validators.required]],
+      amount: [this.walletById.amount, [Validators.required]],
+      description: [this.walletById.description, [Validators.required]],
+      icon: [''],
+      user_id: [value.id]
+    })
+  }
+
   editWallet() {
     let id = this.activatedRouter.snapshot.queryParamMap.get('id');
     let data = this.formEditWallet?.value;
     data.icon = this.backgroundImg;
-    console.log(data);
     this.walletService.update(id, data).subscribe(() => {
       this.toastr.success('Create wallet success');
       this.getWalletById();
@@ -155,6 +161,4 @@ export class WalletDetailComponent implements OnInit {
       this.allService.updateData(res.data);
     })
   }
-
-
 }

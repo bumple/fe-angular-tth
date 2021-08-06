@@ -8,13 +8,10 @@
         <div class="col-md-6">
           <div style="float:right;">
             <span>
-              <img class="project_img" data-toggle="modal" data-target="#modal-default-create" src="assets/images/icons/wallet_plus.png">
+              <img class="project_img" data-toggle="modal" data-target="#modal-default-create" src="assets/images/icons/addwallet.jpg">
             </span>
             <span>
-              <img class="project_img" data-toggle="modal" data-target="#modal-default" src="assets/images/icons/money_plus.png">
-            </span>
-            <span>
-              <img class="project_img" src="assets/images/icons/transaction.png" data-toggle="modal" data-target="#modal-lg">
+              <img class="project_img" src="assets/images/icons/transaction.jpg" data-toggle="modal" data-target="#modal-lg">
             </span>
           </div>
         </div>
@@ -22,13 +19,12 @@
     </div>
     <div class="card-body" >
       <div class="row">
-<!--        <h1 *ngIf="(wallets)">Haven't create any wallet</h1>-->
         <div class="col-md-3" *ngFor="let wallet of wallets;index as i">
           <div class="info-box shadow" (click)="getDetail(wallet.id)">
            <span class="info-box-icon bg-warning"><img src="{{wallet.icon}}"></span>
             <div class="info-box-content">
               <span class="info-box-text">{{wallet.name}}</span>
-              <span class="info-box-number">Total: {{wallet.amount}} VND</span>
+              <span class="info-box-number">Total: {{wallet.amount | number:'1.0'}} VND</span>
             </div>
           </div>
         </div>
@@ -36,6 +32,7 @@
     </div>
   </div>
 </div>
+
 
 <!--Modal create wallet-->
 <div class="modal fade" id="modal-default-create">
@@ -99,53 +96,6 @@
     </div>
   </div>
 </div>
-<!--Modal add money-->
-<div class="modal fade" id="modal-default">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Add money to your wallet</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form *ngIf="formAddMoney" [formGroup]="formAddMoney" (ngSubmit)="submit()">
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-sm-6">
-              <!-- select -->
-              <div class="form-group">
-                <label>Select your Wallet </label>
-                <select class="form-control form-control-lg" formControlName="id">
-                  <option *ngFor="let wallet of wallets" value="{{wallet.id}}">{{wallet.name}}</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="form-group">
-                <label>Amount (<ins>VND</ins>) </label>
-                <input class="form-control form-control-lg" type="number" formControlName="amount" placeholder="0"
-                       min="0">
-              </div>
-            </div>
-            <div class="col-sm-12">
-              <div class="form-group">
-                <label>Description</label>
-                <textarea class="form-control" rows="3" placeholder="Note..." formControlName="description"></textarea>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" id="close_modal" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" onclick="$('#close_modal').click();" [disabled]="formAddMoney.invalid"
-                  class="btn btn-outline-success">Save
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 <!--Modal add transaction-->
 <div class="modal fade" id="modal-lg">
   <div class="modal-dialog modal-lg">
@@ -156,7 +106,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form *ngIf="formAddTransaction" [formGroup]="formAddTransaction" (ngSubmit)="createTran()">
+      <form *ngIf="formAddTransaction" [formGroup]="formAddTransaction" (submit)="createTran()">
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-4">
@@ -193,7 +143,7 @@
             <div class="col-sm-4">
               <div class="form-group">
                 <label>Date</label>
-                <input type="datetime-local" class="form-control">
+                <input type="date" class="form-control" [max]="today" formControlName="date">
               </div>
             </div>
           </div>
@@ -210,7 +160,3 @@
     </div>
   </div>
 </div>
-
-
-
-

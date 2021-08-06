@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../../../services/auth/auth.service";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
@@ -10,10 +10,8 @@ import {ToastrService} from "ngx-toastr";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  formLogin: FormGroup | undefined;
-  errLogin: string = '';
-  message: string | undefined;
 
+  formLogin: FormGroup | undefined;
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
@@ -22,24 +20,37 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = this.fb.group({
-      email: [''],
-      password: ['']
+      email: ['',[Validators.required]],
+      password: ['',[Validators.required]]
     })
   }
 
   submit(){
     let data = this.formLogin?.value;
-    console.log(data);
-    this.toastr.success('Đăng nhập thành công')
-
     this.authService.checkAccount(data).subscribe((res:any) => {
       localStorage.setItem('token',res.access_token)
       localStorage.setItem('user',JSON.stringify(res.user))
       this.router.navigate(['']);
+        this.toastr.success('Welcome to TimeToHigh')
     },
       (error) => {
-        this.message = error.message;
+        this.toastr.error('Email or Password is incorrect');
       })
   }
 
+  get email(){
+    return this.formLogin?.get('email');
+  }
+
+  get password(){
+    return this.formLogin?.get('password');
+  }
+
+  getErrorMessageEmail(){
+    return this.email?.hasError('required') ? 'Email is required' : '';
+  }
+
+  getErrorMessagePassword(){
+    return this.email?.hasError('required') ? 'Password is required' : '';
+  }
 }

@@ -3,13 +3,11 @@ import {RouterModule, Routes} from '@angular/router';
 import {LayoutsComponent} from "./components/layouts/master/layouts.component";
 import {LoginComponent} from "./components/layouts/pages/login/login.component";
 import {RegisterComponent} from "./components/layouts/pages/register/register.component";
-
 import {AuthGuard} from "./AuthGuard/auth.guard";
 import {WalletInfoComponent} from "./components/wallets/wallet-info/wallet-info.component";
 import {CategoryListComponent} from "./components/categories/category-list/category-list.component";
 import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
 import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
-import {CategoryEditComponent} from "./components/categories/category-edit/category-edit.component";
 import {TransactionsListComponent} from "./components/transactions/transactions-list/transactions-list.component";
 
 const routes: Routes = [
@@ -46,13 +44,9 @@ const routes: Routes = [
         path: 'category',
         children: [
           {
-            path: 'info/:id',
+            path: 'info',
             component: CategoryListComponent,
           },
-          {
-            path: 'edit',
-            component: CategoryEditComponent
-          }
         ]
       },
       {

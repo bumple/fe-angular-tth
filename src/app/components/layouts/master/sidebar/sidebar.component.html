@@ -8,10 +8,10 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <li class="image nav-item">
             <a class="nav-link pl-0">
-            <img src="../../../../../assets/images/anhtam.jpg" class="img-circle mb-2"  alt="User Image">
-              <p class="ml-2" style="font: 20px 'Font Awesome 5 Free'!important;" >{{userName}}
+              <img src="{{avatar}}" class="img-circle mb-2" alt="User Image">
+              <p class="ml-2" style="font: 20px 'Font Awesome 5 Free'!important;">{{userName}}
               </p>
-              <i class="fas fa-angle-left right mt-1" style="margin-right: 25px"></i>
+              <i class="fas fa-angle-left right mt-2" style="margin-right: 15px"></i>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -33,7 +33,9 @@
           <a href="#" class="nav-link">
             <img src="https://static.moneylover.me/img/icon/ic_category_all.png" alt="Icon Image">
             <p class="ml-3">
-              Total: {{total|number:"1.0"}} (<ins>VND</ins>)
+              Total: {{total|number:"1.0"}} (
+              <ins>VND</ins>
+              )
             </p>
           </a>
         </li>
@@ -68,19 +70,31 @@
                     <p style="margin-left: 7px">{{wallet.name}}
                       <i class="fas fa-angle-left right"></i>
                     </p>
+                    <span style="float: right;margin-right: 15px">({{wallets[i].categories.length}})</span>
                   </a>
                   <ul class="nav nav-treeview">
                     <li style="margin-left: 35px" class="nav-item" *ngFor="let category of wallets[i].categories">
-                    <a [routerLink]="['transaction/info',category.id]"  class="nav-link">
-                      <i class="fas fa-angle-double-right"></i>
-                      <p style="margin-left: 7px">{{category.name}}</p>
-                    </a>
+                      <a [routerLink]="['transaction/info',category.id]" class="nav-link">
+                        <i class="fas fa-angle-double-right"></i>
+                        <p style="margin-left: 7px">{{category.name}}</p>
+                        <!--                        <span style="float: right;margin-right: 32px">({{wallet.transactions.length}})</span>-->
+                      </a>
+
                     </li>
                   </ul>
                 </li>
               </ul>
             </li>
           </ul>
+        </li>
+        <li class="nav-item">
+          <a routerLink="category/info" class="nav-link">
+            <i class="fas fa-archive"></i>
+            <p style="margin-left: 10px">
+              Category
+              <!--              <i class="fas fa-angle-left right"></i>-->
+            </p>
+          </a>
         </li>
       </ul>
     </nav>
@@ -91,22 +105,76 @@
 <div class="modal fade" id="modal-user">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 style="margin-left: auto">Your Profile</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <img src="../../../../../assets/images/anhtam.jpg" style="margin-left: 100px" class="img-circle mb-2" width="250px" height="250px" alt="User Image">
-        <i style="margin-bottom: 10px; margin-right: 70px; position: absolute" class="fas fa-camera-retro fa-2x"></i>
-      </div>
-    <div class="modal-footer justify-content-between">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save changes</button>
+      <form *ngIf="formEditProfile" [formGroup]="formEditProfile" (ngSubmit)="submitProfile()">
+        <div class="modal-header">
+          <h4 style="margin-left: auto">Your Profile</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img [src]="avatar" *ngIf="avatar" style="margin-left: 100px" class="img-circle"
+               width="250px" height="250px" alt="User Image">
+          <label for="file"><img src="assets/images/camera.png"
+                                 style="position: absolute;left: 300px;top: 200px;width: 69px"
+                                 class="img-circle"></label>
+          <input formControlName="fileSource" id="file" type="file" class="form-control"
+                 (change)="onFileChange($event)" style="display: none">
+          <h2 class="mt-3" style="text-align: center" id="user-name"
+              [style.display]="hidden?'block':'none'"> {{userName}} <i (click)="changeName()" class="far fa-edit"
+                                                                       style="color: lightskyblue"></i></h2>
+          <div class="mt-3" id="user-name-edit" [style.display]="hidden?'none':'block'">
+            <div class="row">
+              <div class="col-8">
+                <input formControlName="name" type="text" class="form-control">
+              </div>
+              <div class="col-4">
+                <button id="user-name-save" type="button" class="btn btn-outline-success" (click)="submitName()">Save
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" id="close_modal_user" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+          <button type="button" id="change-password" data-toggle="modal" data-target="#modal-password"
+                  class="btn btn-danger">Change Password
+          </button>
+          <button *ngIf="formEditProfile" type="submit" onclick="$('#close_modal_user').click();"
+                  [disabled]="formEditProfile.invalid" class="btn btn-outline-success">Save
+          </button>
+        </div>
+      </form>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+</div>
+
+
+<div class="modal fade" id="modal-password">
+  <div class="modal-dialog" style="width: 50%; height: 100%; margin: auto">
+    <div class="modal-content" style="width: 75%; height: 75%; margin:auto">
+      <form *ngIf="formChangePassword" [formGroup]="formChangePassword" (ngSubmit)="changePassword()">
+        <div class="modal-header">
+          <h4 style="margin-left: auto">Change Password</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label style="margin-left: 65px">Enter your current password:<input type="password" formControlName="currentPassword"></label>
+          <label style="margin-left: 65px">Enter your new password:<input type="password" formControlName="password"></label>
+          <label style="margin-left: 65px">Confirm your new password:<input type="password" formControlName="password_confirmation"></label>
+        </div>
+        <div class="modal-footer justify-content-between">
+          <button type="button" id="close_modal_password" class="btn btn-outline-dark" data-dismiss="modal">Close
+          </button>
+          <button *ngIf="formChangePassword" type="submit" onclick="$('#close_modal_password').click();"
+                  [disabled]="formChangePassword.invalid" class="btn btn-outline-success">Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  <!-- /.modal-content -->
-</div>
-<!-- /.modal-dialog -->
 </div>

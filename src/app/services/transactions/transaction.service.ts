@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {Observable} from "rxjs";
 import {ITransaction} from "../../interface/itransaction";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,13 @@ export class TransactionService {
 
   delete(id:any) {
     return this.http.delete(`${environment.url}/auth/transaction/${id}`)
+  }
+
+  getReportData(){
+    return this.http.get(`${environment.url}/auth/report/transactions`);
+  }
+
+  getReportFromToDate(data:any){
+    return this.http.post(`${environment.url}/auth/report`,data);
   }
 }
