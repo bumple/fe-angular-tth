@@ -38,7 +38,11 @@ export class SidebarComponent implements OnInit {
        console.log(res);
        this.user = res;
        this.userName = this.user.name;
-       this.avatar = 'http://localhost:8000/storage/image/' + this.user.avatar;
+       if (this.user.avatar !== null) {
+         this.avatar = 'http://localhost:8000/storage/image/' + this.user.avatar;
+       } else {
+         this.avatar = "assets/images/avt.jpg";
+      }
     });
   }
 
