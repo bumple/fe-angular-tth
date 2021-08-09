@@ -4,7 +4,16 @@
 
 export const environment = {
   production: false,
-  url: 'http://localhost:8000/api'
+  url: 'http://localhost:8000/api',
+  firebaseConfig : {
+    apiKey: "AIzaSyAgUyMMs1gEg0ERJEdOpQjEaoQiDbZcxgY",
+    authDomain: "timetohigh-81d9c.firebaseapp.com",
+    projectId: "timetohigh-81d9c",
+    storageBucket: "timetohigh-81d9c.appspot.com",
+    messagingSenderId: "834661490802",
+    appId: "1:834661490802:web:62ff745cd571ea7db7a2eb",
+    measurementId: "G-ZMW6LDPRLY"
+  }
 };
 
 /*

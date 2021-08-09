@@ -3,4 +3,5 @@ export interface IWallet {
   name: string,
   amount : number,
   description: string,
+  icon: string,
 }

@@ -1,0 +1,110 @@
+<div class="card" style="width: 50%;margin: 0 auto">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>Wallet's Detail</h1>
+      </div>
+      <div class="col-md-6">
+        <span style="float: right">
+          <button data-toggle="modal" data-target="#modal-default-edit" class="btn bg-gradient-teal" (click)="openEdit()"><i class="far fa-edit"></i></button>
+        <button (click)="deleteWallet(walletById.id)" class="btn bg-gradient-danger ml-2"><i class="fas fa-trash-alt"></i></button>
+        </span>
+      </div>
+    </div>
+    <!--Modal edit wallet-->
+    <div class="modal fade" id="modal-default-edit">
+      <div class="modal-dialog modal-default">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Edit Wallet</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form *ngIf="formEditWallet" [formGroup]="formEditWallet" (ngSubmit)="editWallet()">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-2">
+                  <div class="form-group">
+                    <label>Icon</label>
+                    <div id="image-dropdown">
+                      <input type="radio" id="line1" name="icon" value="{{value}}" checked/>
+                      <label style="opacity: 1 !important;display: block;background-image: url({{backgroundImg}})"
+                             for="line1">
+                      </label>
+                      <input *ngFor="let icon of iconList" type="radio" id="line{{icon.value}}" name="icon"
+                             value="{{icon.value}}"/>
+                      <label *ngFor="let icon of iconList;let i = index" style="background-image: url({{icon.img}})"
+                             for="line{{icon.value}}" (click)="select(i)">
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label>Wallet Name</label>
+                    <input type="text" formControlName="name" class="form-control">
+                  </div>
+                </div>
+                <div class="col-sm-5">
+                  <div class="form-group">
+                    <label>Amount (<ins>VND</ins>)</label>
+                    <input type="number" formControlName="amount" class="form-control"
+                           min="0">
+                  </div>
+                </div>
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label>Description</label>
+                    <textarea class="form-control" rows="3" formControlName="description"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" id="close_modal_edit" class="btn btn-outline-secondary" data-dismiss="modal">
+                Close
+              </button>
+              <button type="submit" onclick="$('#close_modal_edit').click();"
+                      [disabled]="formEditWallet.invalid" class="btn btn-outline-success">Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="card-body">
+    <table class="table box-shadow--6dp shadow-lg">
+      <tbody>
+      <tr>
+        <th>Icon :</th>
+        <td><img *ngIf="walletById.icon" src="{{walletById.icon}}"></td>
+      </tr>
+      <tr>
+        <th>Name:</th>
+        <td>{{walletById.name}}</td>
+      </tr>
+      <tr>
+        <th>Total Money:</th>
+        <td>{{walletById.amount}} VND</td>
+      </tr>
+      <tr>
+        <th>Description:</th>
+        <td>{{walletById.description}}</td>
+      </tr>
+      <tr>
+        <th>Created date:</th>
+        <td>{{walletById.created_at}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="row" style="float: right">
+      <button class="btn bg-gradient-secondary mt-2"  (click)="back()">Back</button>
+    </div>
+  </div>
+</div>
+
+

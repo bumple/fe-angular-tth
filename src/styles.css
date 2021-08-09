@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~ngx-toastr/toastr";
+
+.project_img{
+  height: 35px;
+  width: 35px;
+  margin-left:10px;
+}
+.project_img:hover{
+  transform: scale(1.6);
+  border-radius: 5px;
+}
+
+
+
+

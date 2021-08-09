@@ -1,17 +1,32 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {LayoutsComponent} from "./components/layouts/master/layouts.component";
 import {LoginComponent} from "./components/layouts/pages/login/login.component";
 import {RegisterComponent} from "./components/layouts/pages/register/register.component";
+import {AuthGuard} from "./AuthGuard/auth.guard";
 import {WalletInfoComponent} from "./components/wallets/wallet-info/wallet-info.component";
-import {WalletCreateComponent} from "./components/wallets/wallet-create/wallet-create.component";
-
+import {CategoryListComponent} from "./components/categories/category-list/category-list.component";
+import {WalletDetailComponent} from "./components/wallets/wallet-detail/wallet-detail.component";
+import {MainContentComponent} from "./components/layouts/master/main-content/main-content.component";
+import {TransactionsListComponent} from "./components/transactions/transactions-list/transactions-list.component";
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
   {
     path: '',
     component: LayoutsComponent,
     children: [
+      {
+        path: 'statistics',
+        component: MainContentComponent
+      },
       {
         path: 'wallet',
         children: [
@@ -20,25 +35,36 @@ const routes: Routes = [
             component: WalletInfoComponent
           },
           {
-            path: 'create',
-            component: WalletCreateComponent
+            path: 'detail',
+            component: WalletDetailComponent
+          }
+        ],
+      },
+      {
+        path: 'category',
+        children: [
+          {
+            path: 'info',
+            component: CategoryListComponent,
+          },
+        ]
+      },
+      {
+        path: 'transaction',
+        children: [
+          {
+            path: 'info/:id',
+            component: TransactionsListComponent
           }
         ]
-      }
-    ]
+      },
+    ], canActivate: [AuthGuard]
   },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  }
-];
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
