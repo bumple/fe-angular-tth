@@ -99,6 +99,7 @@
                           <input class="form-control" type="date" formControlName="to" [max]="today"
                                  (change)="pickDate()">
                         </form>
+                        <button class="btn btn-info mt-5" [disabled]="check"  (click)="export()">Export to Excel</button>
                       </div>
                     </div>
                   </div>
