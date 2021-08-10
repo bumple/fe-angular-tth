@@ -115,7 +115,7 @@
         <div class="modal-body">
           <img [src]="avatar" *ngIf="avatar" style="margin-left: 100px" class="img-circle"
                width="250px" height="250px" alt="User Image">
-          <label for="file"><img src="assets/images/camera.png"
+          <label ><img src="assets/images/camera.png"
                                  style="position: absolute;left: 300px;top: 200px;width: 69px"
                                  class="img-circle"></label>
           <input formControlName="fileSource" id="file" type="file" class="form-control"
@@ -134,7 +134,6 @@
               </div>
             </div>
           </div>
-
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" id="close_modal_user" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
@@ -163,9 +162,9 @@
           </button>
         </div>
         <div class="modal-body">
-          <label style="margin-left: 65px">Enter your current password:<input type="password" formControlName="currentPassword"></label>
-          <label style="margin-left: 65px">Enter your new password:<input type="password" formControlName="password"></label>
-          <label style="margin-left: 65px">Confirm your new password:<input type="password" formControlName="password_confirmation"></label>
+          <label style="margin-left: 65px">Enter your current password:<input type="password" formControlName="currentPassword" class="form-control"></label>
+          <label style="margin-left: 65px">Enter your new password:<input type="password" formControlName="password" class="form-control"></label>
+          <label style="margin-left: 65px">Confirm your new password:<input type="password" formControlName="password_confirmation" class="form-control"></label>
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" id="close_modal_password" class="btn btn-outline-dark" data-dismiss="modal">Close

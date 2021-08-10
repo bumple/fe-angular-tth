@@ -53,6 +53,7 @@ export class SidebarComponent implements OnInit {
     });
     this.allService.getDataList().subscribe(res => {
       this.allService.updateData(res.data);
+      console.log(res.data);
       this.getTotalMoney();
     });
     this.formEditProfile = this.fb.group({
@@ -122,7 +123,6 @@ export class SidebarComponent implements OnInit {
       });
       // @ts-ignore
       this.formEditProfile?.get('file').updateValueAndValidity()
-
 
       reader.readAsDataURL(file);
 
